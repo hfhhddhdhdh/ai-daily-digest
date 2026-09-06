@@ -18,19 +18,19 @@ topics:
 
 # ──────────────────────────────────────────────
 #  STEP 2 · 新闻 RSS 来源（行首加 # 可停用）
+#  已剔除失效/长期不更新的老源（2026-09 实测），全部为可用源
 #  可自行添加任何提供 RSS 的网站：名称: 链接
 # ──────────────────────────────────────────────
 news_feeds:
-  OpenAI Blog:        https://openai.com/blog/rss.xml
-  Google DeepMind:    https://deepmind.google/discover/blog/rss.xml
-  Hugging Face:       https://huggingface.co/blog/feed.xml
-  The Verge AI:       https://www.theverge.com/ai-artificial-intelligence/rss/index.xml
-  MIT Tech Review AI: https://www.technologyreview.com/topic/artificial-intelligence/feed
-  VentureBeat AI:     https://venturebeat.com/category/ai/feed/
-  TechCrunch AI:      https://techcrunch.com/category/artificial-intelligence/feed/
-  arXiv cs.AI:        https://rss.arxiv.org/rss/cs.AI
-  arXiv cs.CL:        https://rss.arxiv.org/rss/cs.CL
-  arXiv cs.RO:        https://rss.arxiv.org/rss/cs.RO
+  TechCrunch AI:       https://techcrunch.com/category/artificial-intelligence/feed/
+  The Decoder:         https://the-decoder.com/feed/
+  MarkTechPost:        https://www.marktechpost.com/feed/
+  Wired AI:            https://www.wired.com/feed/tag/ai/latest/rss
+  Ars Technica AI:     https://arstechnica.com/ai/feed/
+  MIT Tech Review AI:  https://www.technologyreview.com/topic/artificial-intelligence/feed
+  Hugging Face:        https://huggingface.co/blog/feed.xml
+  Google DeepMind:     https://deepmind.google/blog/rss.xml
+  arXiv cs.AI/CL/RO:   https://export.arxiv.org/api/query?search_query=cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=40
 
 
 # ──────────────────────────────────────────────

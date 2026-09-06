@@ -22,7 +22,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 HISTORY_PATH = Path(__file__).parent / "sent_history.json"
-HISTORY_MAX = 2000  # 最多保留最近 2000 条，防止文件无限增长
+HISTORY_MAX = 6000  # 最多保留最近 6000 条，防止文件无限增长
 
 
 def load_config() -> dict:
@@ -105,10 +105,17 @@ def _fetch_feeds(feeds: dict, hours: int, per_source: int,
 
 
 def fetch_recent_articles(cfg: dict) -> list[dict]:
+    """抓 24h 新闻；如果太少（周末/凌晨常见）就自动把窗口放宽到 48h/72h，避免邮件空荡荡。"""
     d = cfg["digest"]
-    return _fetch_feeds(
-        cfg["news_feeds"], d["news_hours"], d["news_per_source"], cfg["arxiv_keywords"]
-    )
+    feeds, kw = cfg["news_feeds"], cfg["arxiv_keywords"]
+    per_source = d["news_per_source"]
+    articles = _fetch_feeds(feeds, d["news_hours"], per_source, kw)
+    for extra_hours in (48, 72):
+        if len(articles) >= 12:
+            break
+        print(f"    24h 内新闻偏少({len(articles)} 条)，把窗口放宽到 {extra_hours}h 再抓…")
+        articles = _fetch_feeds(feeds, extra_hours, per_source, kw)
+    return articles
 
 
 def fetch_blog_candidates(cfg: dict, history: set[str]) -> list[dict]:
@@ -199,11 +206,13 @@ def fetch_github_trending(cfg: dict) -> list[dict]:
         if len(repos) >= count:
             break
         desc = (item.get("description") or "").strip()[:280]
+        topics = "、".join((item.get("topics") or [])[:8])
         repos.append({
             "full_name": item.get("full_name", ""),
             "url": item.get("html_url", ""),
             "stars": item.get("stargazers_count", 0),
             "language": item.get("language") or "—",
+            "topics": topics or "—",
             "description": desc or "（暂无简介）",
         })
 
@@ -230,23 +239,26 @@ def summarize(articles: list[dict], blog_candidates: list[dict],
     ) if blog_candidates else "（暂无候选，所有文章均已推送过）"
 
     repos_text = "\n\n---\n\n".join(
-        f"{r['full_name']} | ⭐{r['stars']} | {r['language']}\n链接: {r['url']}\n简介: {r['description']}"
+        f"{r['full_name']} | ⭐{r['stars']} | 语言: {r['language']} | 标签: {r['topics']}\n"
+        f"链接: {r['url']}\n简介: {r['description']}"
         for r in repos
     ) if repos else "（今天没有抓到大体量的 AI 新项目，这一板块可简单说明后跳过）"
 
     today = datetime.now().strftime("%Y年%m月%d日")
 
     if repos:
-        gh_pick_guide = (f"从【GitHub 高星新项目】里挑值得关注的"
-                         f"（最多 {len(repos)} 个，可少给，宁缺毋滥），"
-                         f"每个：一句话这项目是干嘛的 + 一句话为什么值得关注。")
+        gh_pick_guide = (f"从【GitHub 高星新项目】里挑值得关注的（最多 {len(repos)} 个），"
+                         f"每个项目写两小节、共 4-6 句，写得具体别空泛：\n"
+                         f"「是什么」2-3 句：它解决什么问题、怎么解决、主要功能或技术栈；\n"
+                         f"「为什么值得关注」2-3 句：亮点在哪、适合谁用/谁该知道、可能带来什么影响。\n"
+                         f"先写一句人话概括（比如：想本地跑大模型的人会需要的工具），再展开。")
         gh_html_guide = """
 <div class="section-title">⭐ GitHub 高星新项目</div>
 <div class="repo">
   <h3><a href="URL">owner/repo</a></h3>
-  <span class="meta">⭐ 星数 · 语言</span>
+  <span class="meta">⭐ 星数 · 语言 · 标签</span>
   <p><strong>是什么：</strong>……</p>
-  <p><strong>为什么值得看：</strong>……</p>
+  <p><strong>为什么值得关注：</strong>……</p>
 </div>"""
     else:
         gh_pick_guide = "今天没有抓到值得单独推荐的新项目，直接跳过这一板块，不要编造。"
@@ -258,9 +270,10 @@ def summarize(articles: list[dict], blog_candidates: list[dict],
 所有内容用{lang}输出。
 
 【文风硬性要求】
-1. 中文、简洁直白、说人话，像靠谱朋友给你划重点。
-2. 每条给出判断，不要罗列、不要空话套话；非用术语就顺带一句人话解释。
-3. 标题要具体、抓重点，不标题党。
+1. 中文、口语化、有网感，像科技博主在公众号好文里给读者划重点，绝不是官方通稿。
+2. 第一句就要抓人；多用短句、具体数字、大白话类比；有观点有态度，可以犀利，但不标题党。
+3. 严禁官腔套话（出现即失败）：标志着、赋能、助力、打造、重磅、隆重、进一步、与此同时、不容忽视、值得注意的是、综上所述。
+4. 每一条都要让读者 30 秒内 get 到：发生了什么、和我（或行业）有什么关系、影响谁。
 
 【新闻资讯】过去 {d['news_hours']} 小时共 {len(articles)} 条：
 
@@ -276,9 +289,12 @@ def summarize(articles: list[dict], blog_candidates: list[dict],
 
 请按以下六个部分组织内容，严格输出 HTML（不要 markdown 代码块、不要 ```html 标记、不要任何前言后语）：
 
-第一部分：📌 重点新闻（8-12 条，选最重要最有信息量的，优先与你关注方向相关的）
-每条包含：「事件」1 句讲清楚发生了什么；「看点」1-2 句说清为什么值得关注、影响是什么（有判断，说人话）；有关联就补一句「关联」。
-宁缺毋滥，没什么含金量的不要硬凑。
+第一部分：📌 重点新闻（10-15 条，选最重要最有信息量的，优先与你关注方向相关的）
+每条写足、写具体：
+- 「事件」1-2 句：讲清到底发生了什么，带具体名字/数字，不绕弯子；
+- 「看点」2-3 句：为什么值得关注、影响谁、影响多大，落到实处的判断；
+- 「怎么看」1-2 句：你的态度——认同、质疑或风险提示，别和稀泥；
+- 有关联再补一句「关联」。
 
 第二部分：📈 趋势分析
 2-3 个值得注意的趋势，每个：现状证据 + 一句话预判，简洁。
@@ -305,6 +321,7 @@ HTML 模板如下（样式 class 必须原样保留，内容替换为你写的�
   <span class="meta">来源：XXX · 时间</span>
   <p><strong>事件：</strong>……</p>
   <p><strong>看点：</strong>……</p>
+  <p><strong>怎么看：</strong>……</p>
   <p class="tag">关联：……</p>
 </div>
 
@@ -391,49 +408,50 @@ HTML 模板如下（样式 class 必须原样保留，内容替换为你写的�
 
 EMAIL_CSS = """
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-       background: #f0f0f5; margin: 0; padding: 20px; color: #222; }
-.wrapper { max-width: 700px; margin: auto; background: #fff;
+       background: #f0f0f5; margin: 0; padding: 24px; color: #1f2430; }
+.wrapper { max-width: 720px; margin: auto; background: #fff;
            border-radius: 10px; overflow: hidden;
            box-shadow: 0 2px 12px rgba(0,0,0,.10); }
-.header { background: #0f0f1a; color: #fff; padding: 28px 36px; }
-.header h1 { margin: 0; font-size: 22px; letter-spacing: -.3px; }
-.body { padding: 28px 36px; }
-h2 { color: #0f0f1a; margin-top: 0; font-size: 20px; }
-.intro { color: #666; font-size: 13px; margin-bottom: 28px; }
-.section-title { font-weight: 700; font-size: 11px; text-transform: uppercase;
-                 letter-spacing: .1em; color: #999; margin: 32px 0 14px;
-                 padding-bottom: 6px; border-bottom: 1px solid #eee; }
-.item { border-left: 3px solid #4f46e5; padding: 14px 18px;
-        margin-bottom: 18px; background: #fafafa; border-radius: 0 8px 8px 0; }
-.item h3 { margin: 0 0 4px; font-size: 15px; line-height: 1.4; }
+.header { background: #0f0f1a; color: #fff; padding: 30px 40px; }
+.header h1 { margin: 0; font-size: 24px; letter-spacing: -.3px; }
+.body { padding: 32px 40px; }
+h2 { color: #0f0f1a; margin-top: 0; font-size: 21px; line-height: 1.5; }
+.intro { color: #667; font-size: 14px; margin-bottom: 30px; line-height: 1.7; }
+.section-title { font-weight: 700; font-size: 13px; letter-spacing: .08em;
+                 color: #8a8fa3; margin: 38px 0 16px;
+                 padding-bottom: 8px; border-bottom: 2px solid #eee; }
+.item { border-left: 4px solid #4f46e5; padding: 18px 22px;
+        margin-bottom: 20px; background: #fafafe; border-radius: 0 10px 10px 0; }
+.item h3 { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
 .item h3 a { color: #1a1a2e; text-decoration: none; }
 .item h3 a:hover { text-decoration: underline; }
-.meta { font-size: 11px; color: #aaa; display: block; margin-bottom: 8px; }
-.item p { margin: 6px 0 0; font-size: 14px; line-height: 1.7; color: #444; }
-.item p.tag { font-size: 12px; color: #7c6fcd; margin-top: 8px; }
-.trend { border-left: 3px solid #059669; padding: 14px 18px;
-         margin-bottom: 18px; background: #f0fdf4; border-radius: 0 8px 8px 0; }
-.trend h3 { margin: 0 0 8px; font-size: 15px; color: #065f46; }
-.trend p { margin: 0; font-size: 14px; line-height: 1.7; color: #444; }
-.deep-read { border-left: 3px solid #d97706; padding: 14px 18px;
-             margin-bottom: 18px; background: #fffbeb; border-radius: 0 8px 8px 0; }
-.deep-read h3 { margin: 0 0 8px; font-size: 15px; }
+.meta { font-size: 12px; color: #9aa; display: block; margin-bottom: 10px; line-height: 1.6; }
+.item p { margin: 8px 0 0; font-size: 15px; line-height: 1.9; color: #3a4252; }
+.item p strong { color: #222; }
+.item p.tag { font-size: 13px; color: #6d5fc4; margin-top: 10px; }
+.trend { border-left: 4px solid #059669; padding: 18px 22px;
+         margin-bottom: 20px; background: #f0fdf4; border-radius: 0 10px 10px 0; }
+.trend h3 { margin: 0 0 10px; font-size: 16px; color: #065f46; }
+.trend p { margin: 0; font-size: 15px; line-height: 1.9; color: #3a4252; }
+.deep-read { border-left: 4px solid #d97706; padding: 18px 22px;
+             margin-bottom: 20px; background: #fffbeb; border-radius: 0 10px 10px 0; }
+.deep-read h3 { margin: 0 0 10px; font-size: 16px; }
 .deep-read h3 a { color: #92400e; text-decoration: none; }
-.deep-read p { margin: 0; font-size: 14px; line-height: 1.7; color: #444; }
-.blog-pick { border-left: 3px solid #db2777; padding: 14px 18px;
-             margin-bottom: 18px; background: #fdf2f8; border-radius: 0 8px 8px 0; }
-.blog-pick h3 { margin: 0 0 4px; font-size: 15px; }
+.deep-read p { margin: 0; font-size: 15px; line-height: 1.9; color: #3a4252; }
+.blog-pick { border-left: 4px solid #db2777; padding: 18px 22px;
+             margin-bottom: 20px; background: #fdf2f8; border-radius: 0 10px 10px 0; }
+.blog-pick h3 { margin: 0 0 6px; font-size: 16px; }
 .blog-pick h3 a { color: #831843; text-decoration: none; }
-.blog-why { margin: 10px 0 8px; font-size: 14px; line-height: 1.7; color: #444; }
-.blog-pick ul { margin: 8px 0; padding-left: 20px; font-size: 14px; line-height: 1.8; color: #444; }
-.blog-audience { font-size: 12px; color: #9d174d; margin: 8px 0 0; }
-.repo { border-left: 3px solid #0ea5e9; padding: 14px 18px;
-        margin-bottom: 18px; background: #f0f9ff; border-radius: 0 8px 8px 0; }
-.repo h3 { margin: 0 0 4px; font-size: 15px; }
+.blog-why { margin: 12px 0 10px; font-size: 15px; line-height: 1.9; color: #3a4252; }
+.blog-pick ul { margin: 10px 0; padding-left: 24px; font-size: 15px; line-height: 1.9; color: #3a4252; }
+.blog-audience { font-size: 13px; color: #9d174d; margin: 10px 0 0; }
+.repo { border-left: 4px solid #0ea5e9; padding: 18px 22px;
+        margin-bottom: 20px; background: #f0f9ff; border-radius: 0 10px 10px 0; }
+.repo h3 { margin: 0 0 6px; font-size: 16px; }
 .repo h3 a { color: #075985; text-decoration: none; }
-.repo p { margin: 6px 0 0; font-size: 14px; line-height: 1.7; color: #444; }
+.repo p { margin: 8px 0 0; font-size: 15px; line-height: 1.9; color: #3a4252; }
 .closing { background: #1a1a2e; color: #e0e0ff; border-radius: 8px;
-           padding: 16px 20px; margin-top: 28px; font-size: 14px; line-height: 1.6; }
+           padding: 20px 24px; margin-top: 32px; font-size: 15px; line-height: 1.8; }
 .closing strong { color: #fff; }
 .footer { padding: 16px 36px; font-size: 12px; color: #bbb;
           border-top: 1px solid #eee; text-align: center; }
@@ -493,7 +511,9 @@ if __name__ == "__main__":
 
     print("1/4 抓取新闻...")
     articles = fetch_recent_articles(cfg)
-    print(f"    新闻 {len(articles)} 条")
+    before = len(articles)
+    articles = [a for a in articles if a["url"] not in sent_urls]
+    print(f"    抓取 {before} 条，剔除已推送后剩 {len(articles)} 条")
 
     print("2/4 抓取博客/经典候选...")
     blog_candidates = fetch_blog_candidates(cfg, sent_urls)
@@ -514,8 +534,8 @@ if __name__ == "__main__":
     print("发送邮件...")
     send_email(summary, cfg)
 
-    # 记录已推送链接（推荐博客 + GitHub 新项目），避免重复
-    new_urls = []
+    # 记录已推送链接（新闻 + 推荐博客 + GitHub 新项目），避免重复
+    new_urls = [a["url"] for a in articles]
     recommended = extract_recommended_url(summary)
     if recommended:
         new_urls.append(recommended)
