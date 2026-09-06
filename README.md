@@ -32,7 +32,8 @@
 ### 前置条件
 
 - GitHub 账号（免费）
-- 一个 **Outlook / Gmail / QQ 邮箱**作为发信人（本文以 Outlook 为例）
+- 一个 **163 邮箱**作为发信人（需开启 SMTP 并生成授权码，见第 2 步）
+- 一个收件邮箱（可以是任意邮箱，例如你常用的 Outlook）
 - 一个 **Gemini API Key**（免费）— 在 <https://aistudio.google.com/apikey> 申请
 
 ### 第 1 步：把本项目放到你自己的 GitHub 上
@@ -42,11 +43,12 @@
 3. 点 **Create repository**
 4. 把本文件夹里的所有文件推上去（git 推送，或网页上传都行）
 
-### 第 2 步：准备发件邮箱（Outlook 为例）
+### 第 2 步：准备发件邮箱（163 邮箱）
 
-1. 开启两步验证：<https://account.microsoft.com/security> → 安全 → 双重验证
-2. 生成**应用密码**：安全页 → 应用密码 → 生成（16 位，只显示一次）
-   > ⚠️ 不是你的登录密码，是"应用密码"
+1. 网页登录你的 163 邮箱 → **设置 → POP3/SMTP/IMAP**
+2. 开启 **SMTP 服务**（会要求短信验证，验证后**生成一串授权码**，记下来）
+   > ⚠️ 授权码只显示一次。它不是你的登录密码，是给外部程序发信用的一串码。
+   > 换 QQ 邮箱的话流程一样，在 QQ 邮箱「设置→账户→开启 POP3/SMTP 服务」里拿授权码。
 
 ### 第 3 步：添加密钥
 
@@ -55,9 +57,9 @@
 | 密钥名 | 填什么 |
 |--------|--------|
 | `GEMINI_API_KEY` | Gemini API Key（<https://aistudio.google.com/apikey>） |
-| `SMTP_USER` | 发件邮箱地址，如 `xxx@outlook.com` |
-| `SMTP_PASSWORD` | 上面生成的 16 位应用密码 |
-| `RECIPIENT_EMAIL` | （可选）收件邮箱；**留空 = 发给发件邮箱自己** |
+| `SMTP_USER` | 发件邮箱完整地址，如 `xxx@163.com` |
+| `SMTP_PASSWORD` | 上面生成的**授权码** |
+| `RECIPIENT_EMAIL` | 你的收件邮箱（如你的 Outlook 地址）；**留空 = 发给发件邮箱自己** |
 
 ### 第 4 步：验证并试收一封
 
@@ -74,13 +76,13 @@
 先跑一次「✅ 配置自检」看哪一步红了。检查垃圾邮件箱。GitHub Actions 的定时任务偶尔会延迟 15–30 分钟。
 
 **Q: 自检报 SMTP 失败？**
-确认 `SMTP_PASSWORD` 填的是 **16 位应用密码**而不是登录密码；确认邮箱开了两步验证且应用密码是最近生成的。
+确认 `SMTP_PASSWORD` 填的是 163/QQ 邮箱的**授权码**而不是登录密码；确认已在邮箱设置里开启 SMTP 服务；163 首次异地登录可能触发风控，去网页邮箱点掉安全提醒即可。
 
 **Q: 想换发送时间？**
 改 `config.yml` 里的 `send_hour_utc`：北京 8:00 = `0`，北京 7:00 = `23`（前一天），以此类推，改完推送到 GitHub 即生效。
 
 **Q: 想换收件邮箱 / 发件邮箱？**
-收件：改 `RECIPIENT_EMAIL` 密钥。发件：换 `SMTP_USER` + `SMTP_PASSWORD` 两个密钥即可；如果换了邮箱服务商（如 QQ），还要同步改 `config.yml` 里的 `smtp` 服务器参数。
+收件：改 `RECIPIENT_EMAIL` 密钥。发件：换 `SMTP_USER` + `SMTP_PASSWORD` 两个密钥即可；如果换了邮箱服务商（如 QQ / Gmail），还要同步改 `config.yml` 里的 `smtp` 服务器参数（163/QQ/Gmail 都是 465 + SSL）。
 
 **Q: 怎么添加/删除新闻源？**
 编辑 `config.yml` 的 `news_feeds` / `blog_feeds`：新增一行 `名称: RSS链接`，或行首加 `#` 停用。

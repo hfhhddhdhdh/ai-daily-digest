@@ -88,21 +88,24 @@ github:
 
 
 # ──────────────────────────────────────────────
-#  STEP 5 · 发信邮箱设置（Outlook / Gmail / QQ 均可）
-#  三种常见配置：
-#   Outlook 个人账号（默认）：
-#     host: smtp-mail.outlook.com   port: 587
-#   Gmail：
-#     host: smtp.gmail.com          port: 465
+#  STEP 5 · 发信邮箱设置（默认 163 邮箱）
+#  常用配置：
+#   163 邮箱（当前默认）：
+#     host: smtp.163.com          port: 465
 #   QQ 邮箱：
-#     host: smtp.qq.com             port: 465
-#   ⚠️ 账号密码不要写在这里！请填到 GitHub Secrets 里
-#      （SMTP_USER / SMTP_PASSWORD），本文件只放服务器参数
+#     host: smtp.qq.com           port: 465
+#   Gmail：
+#     host: smtp.gmail.com        port: 465
+#   ⚠️ 密码不要写在这里！请填到 GitHub Secrets 里
+#      SMTP_USER = 邮箱完整地址（如 xxx@163.com）
+#      SMTP_PASSWORD = 邮箱的「授权码」（163/QQ 在邮箱设置里
+#      开启 SMTP 服务后生成，不是登录密码）
+#      本文件只放服务器参数
 # ──────────────────────────────────────────────
 smtp:
-  host: smtp-mail.outlook.com
-  port: 587
-  ssl: false            # 465 端口用 SSL=true；587 端口用 STARTTLS（ssl: false）
+  host: smtp.163.com
+  port: 465
+  ssl: true             # 465 端口用 SSL=true；587 端口用 STARTTLS（ssl: false）
 
 
 # ──────────────────────────────────────────────

@@ -220,8 +220,8 @@ def check_smtp_and_test() -> bool:
         return True
     except Exception as e:
         print(f"  {FAIL} SMTP 失败: {e}")
-        print("      常见原因：① 用了登录密码而不是 16 位应用密码；")
-        print("      ② 邮箱没开两步验证/没生成应用密码；③ 账号或密码有误")
+        print("      常见原因：① 填了登录密码而不是 163/QQ 邮箱的「授权码」；")
+        print("      ② 邮箱没在设置里开启 SMTP 服务；③ 账号或授权码有误")
         return False
 
 
