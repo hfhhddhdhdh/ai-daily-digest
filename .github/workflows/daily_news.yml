@@ -1,0 +1,72 @@
+name: AI Daily Digest
+
+# 定时 + 手动触发
+on:
+  schedule:
+    # UTC 0-8 点每 15 分钟检查一次（北京 8:00-16:00），到点当天只发一次
+    # send_hour_utc: 0 → 北京时间早上 8:00 左右送达
+    - cron: '*/15 0-8 * * *'
+  workflow_dispatch:      # 手动触发（忽略时间检查，立即发送，用于测试）
+
+permissions:
+  contents: write         # 允许把 sent_history.json 自动 commit 回仓库
+
+jobs:
+  send-digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: 检查今天是否已发送
+        id: timecheck
+        run: |
+          CONFIG_HOUR=$(grep 'send_hour_utc:' config.yml | awk '{print $2}')
+          CURRENT_HOUR=$(date -u +%-H)
+          CURRENT_DATE=$(date -u +%Y-%m-%d)
+          LAST_SENT=$(python3 -c "import json; d=json.load(open('sent_history.json')); print(d.get('last_sent_date',''))" 2>/dev/null || echo "")
+
+          echo "配置发送点(UTC): $CONFIG_HOUR | 当前(UTC): $CURRENT_HOUR | 上次发送日期: $LAST_SENT | 今天: $CURRENT_DATE"
+
+          if [ "$LAST_SENT" = "$CURRENT_DATE" ]; then
+            echo "今天已经发过了，跳过。"
+            echo "should_send=false" >> $GITHUB_OUTPUT
+          elif [ "$CURRENT_HOUR" -ge "$CONFIG_HOUR" ]; then
+            echo "已到发送时间且今天还没发 — 开始发送。"
+            echo "should_send=true" >> $GITHUB_OUTPUT
+          else
+            echo "还没到发送时间，跳过。"
+            echo "should_send=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python
+        if: steps.timecheck.outputs.should_send == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: steps.timecheck.outputs.should_send == 'true' || github.event_name == 'workflow_dispatch'
+        run: pip install -r requirements.txt
+
+      - name: 抓取 + 生成 + 发邮件
+        if: steps.timecheck.outputs.should_send == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY:  ${{ secrets.DEEPSEEK_API_KEY }}
+          SMTP_USER:         ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD:     ${{ secrets.SMTP_PASSWORD }}
+          RECIPIENT_EMAIL:   ${{ secrets.RECIPIENT_EMAIL }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+        run: python fetch_news.py
+
+      - name: 自动提交去重记录
+        if: steps.timecheck.outputs.should_send == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sent_history.json
+          git diff --staged --quiet || git commit -m "chore: update sent history [skip ci]"
+          git push

@@ -1,0 +1,151 @@
+# ╔══════════════════════════════════════════════════════════════╗
+#  AI Daily Digest — 配置文件
+#  只需要改这一个文件，推送到 GitHub 即生效（改完会自动触发下次运行）
+#  完整中文说明见 README.md
+# ╚══════════════════════════════════════════════════════════════╝
+
+
+# ──────────────────────────────────────────────
+#  STEP 1 · 你关注什么领域（影响 AI 的分析重点）
+# ──────────────────────────────────────────────
+topics:
+  - 大语言模型与推理模型
+  - AI Agent（智能体）与自动化
+  - 多模态与视频生成
+  - 开源模型生态（本地部署）
+  - 具身智能与机器人
+
+
+# ──────────────────────────────────────────────
+#  STEP 2 · 新闻 RSS 来源（行首加 # 可停用）
+#  可自行添加任何提供 RSS 的网站：名称: 链接
+# ──────────────────────────────────────────────
+news_feeds:
+  OpenAI Blog:        https://openai.com/blog/rss.xml
+  Google DeepMind:    https://deepmind.google/discover/blog/rss.xml
+  Hugging Face:       https://huggingface.co/blog/feed.xml
+  The Verge AI:       https://www.theverge.com/ai-artificial-intelligence/rss/index.xml
+  MIT Tech Review AI: https://www.technologyreview.com/topic/artificial-intelligence/feed
+  VentureBeat AI:     https://venturebeat.com/category/ai/feed/
+  TechCrunch AI:      https://techcrunch.com/category/artificial-intelligence/feed/
+  arXiv cs.AI:        https://rss.arxiv.org/rss/cs.AI
+  arXiv cs.CL:        https://rss.arxiv.org/rss/cs.CL
+  arXiv cs.RO:        https://rss.arxiv.org/rss/cs.RO
+
+
+# ──────────────────────────────────────────────
+#  STEP 3 · 深度博客订阅（已推送过的自动跳过，不会重复）
+# ──────────────────────────────────────────────
+blog_feeds:
+  Interconnects (Nathan Lambert):   https://www.interconnects.ai/feed
+  Ahead of AI (Sebastian Raschka):  https://magazine.sebastianraschka.com/feed
+  Import AI (Jack Clark):           https://importai.substack.com/feed
+  The Gradient:                     https://thegradient.pub/rss/
+  One Useful Thing (Ethan Mollick): https://www.oneusefulthing.org/feed
+  AI Snake Oil:                     https://aisnakeoil.substack.com/feed
+  Lilian Weng:                      https://lilianweng.github.io/index.xml
+  Last Week in AI:                  https://lastweekin.ai/feed
+
+
+# ──────────────────────────────────────────────
+#  STEP 4 · ⭐ GitHub 高星新项目板块（本项目新增）
+#  每天抓「最近 24 小时内新建、涨星快」的仓库，
+#  再用下方关键词过滤出 AI 相关的，交给 AI 点评后进邮件
+#  keywords 命中「项目名 / 简介 / 话题标签」任一即算 AI 相关
+# ──────────────────────────────────────────────
+github:
+  enabled: true          # false 则整个板块关闭
+  hours: 24              # 抓最近 N 小时新建的仓库
+  count: 8               # 每天最多推送几条（最终由 AI 按质量取舍）
+  candidates: 50         # 先按星数取前 N 个候选再过滤（不用改）
+  min_stars: 20          # 少于该星数的新项目忽略
+  keywords:
+    - ai
+    - llm
+    - gpt
+    - agent
+    - model
+    - transformer
+    - rag
+    - machine learning
+    - deep learning
+    - diffusion
+    - neural
+    - robot
+    - multimodal
+    - vision
+    - embedding
+    - inference
+    - training
+    - openai
+    - anthropic
+    - gemini
+    - deepseek
+    - qwen
+    - claude
+    - assistant
+    - chatbot
+
+
+# ──────────────────────────────────────────────
+#  STEP 5 · 发信邮箱设置（Outlook / Gmail / QQ 均可）
+#  三种常见配置：
+#   Outlook 个人账号（默认）：
+#     host: smtp-mail.outlook.com   port: 587
+#   Gmail：
+#     host: smtp.gmail.com          port: 465
+#   QQ 邮箱：
+#     host: smtp.qq.com             port: 465
+#   ⚠️ 账号密码不要写在这里！请填到 GitHub Secrets 里
+#      （SMTP_USER / SMTP_PASSWORD），本文件只放服务器参数
+# ──────────────────────────────────────────────
+smtp:
+  host: smtp-mail.outlook.com
+  port: 587
+  ssl: false            # 465 端口用 SSL=true；587 端口用 STARTTLS（ssl: false）
+
+
+# ──────────────────────────────────────────────
+#  STEP 6 · 发送时间与模型（一般不用再改）
+# ──────────────────────────────────────────────
+
+# 每天送达时间（UTC 小时）：北京 08:00 = 0，北京 07:00 = 23（前一天）
+send_hour_utc: 0          # 默认北京 8:00 送达
+
+provider: gemini          # gemini（免费，推荐）| anthropic（付费）| deepseek（按量）
+                          # 换成 anthropic / deepseek 时，把下面的模型名一起改掉
+
+arxiv_keywords:
+  - robot
+  - robotics
+  - humanoid
+  - manipulation
+  - embodied
+  - agent
+  - agentic
+  - multi-agent
+  - autonomous
+  - llm
+  - language model
+  - gpt
+  - gemini
+  - claude
+  - qwen
+  - deepseek
+  - multimodal
+  - vision
+  - foundation model
+  - reasoning
+  - diffusion
+  - world model
+
+digest:
+  news_hours: 24          # 新闻回溯窗口（小时）
+  blog_days: 90           # 博客回溯窗口（天）
+  news_per_source: 50     # 每个新闻源最多取几条
+  blog_per_source: 20     # 每个博客最多取几条
+  gemini_model: gemini-2.0-flash   # 免费稳定；想要更强可换 gemini-2.5-pro
+  anthropic_model: claude-sonnet-4-6
+  deepseek_model: deepseek-chat
+  max_tokens: 8000        # 输出上限（六板块较长）
+  output_language: 中文   # 固定中文；想试英文可改 English

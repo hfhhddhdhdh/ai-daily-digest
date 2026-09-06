@@ -1,0 +1,31 @@
+name: ✅ 配置自检
+
+on:
+  workflow_dispatch:   # 只能手动触发，用于首次验证配置是否齐全
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run setup check
+        env:
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY:  ${{ secrets.DEEPSEEK_API_KEY }}
+          SMTP_USER:         ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD:     ${{ secrets.SMTP_PASSWORD }}
+          RECIPIENT_EMAIL:   ${{ secrets.RECIPIENT_EMAIL }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+        run: python check_setup.py
