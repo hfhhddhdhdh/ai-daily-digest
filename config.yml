@@ -27,10 +27,18 @@ news_feeds:
   MarkTechPost:        https://www.marktechpost.com/feed/
   Wired AI:            https://www.wired.com/feed/tag/ai/latest/rss
   Ars Technica AI:     https://arstechnica.com/ai/feed/
+  InfoQ AI:            https://feed.infoq.com/ai-ml-data-eng/
   MIT Tech Review AI:  https://www.technologyreview.com/topic/artificial-intelligence/feed
+  AI News:             https://www.artificialintelligence-news.com/feed/
+  IEEE Spectrum AI:    https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss
   Hugging Face:        https://huggingface.co/blog/feed.xml
   Google DeepMind:     https://deepmind.google/blog/rss.xml
+  Engadget:            https://www.engadget.com/rss.xml
   arXiv cs.AI/CL/RO:   https://export.arxiv.org/api/query?search_query=cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=40
+
+# 下面是全站 RSS（不只 AI 频道），必须命中关键词才收录，避免混进无关新闻
+filtered_feeds:
+  - Engadget
 
 
 # ──────────────────────────────────────────────
@@ -143,12 +151,17 @@ arxiv_keywords:
   - world model
 
 digest:
-  news_hours: 24          # 新闻回溯窗口（小时）
+  news_hours: 24          # 新闻回溯窗口（小时）；素材不够 news_target 会自动放宽到 48/72h
+  news_target: 25         # 目标新闻素材量
   blog_days: 90           # 博客回溯窗口（天）
-  news_per_source: 50     # 每个新闻源最多取几条
+  news_per_source: 60     # 每个新闻源最多取几条
   blog_per_source: 20     # 每个博客最多取几条
-  gemini_model: gemini-3.6-flash    # 免费可用（2.5 系列已对新手停用）；更强可换 gemini-pro-latest
+  gemini_model: gemini-3.6-flash
+  # 主模型 503/429 时依次降级尝试，避免整天失败
+  gemini_fallback_models:
+    - gemini-flash-latest
+    - gemini-flash-lite-latest
   anthropic_model: claude-sonnet-4-6
   deepseek_model: deepseek-chat
-  max_tokens: 8000        # 输出上限（六板块较长）
+  max_tokens: 12000       # 输出上限
   output_language: 中文   # 固定中文；想试英文可改 English

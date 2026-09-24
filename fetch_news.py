@@ -37,7 +37,7 @@ def load_history() -> dict:
     return {"urls": [], "last_sent_date": ""}
 
 
-def save_history(history: dict, new_urls) -> None:
+def save_history(history: dict, new_urls, extra: dict | None = None) -> None:
     """把本次已推送的链接写入历史。new_urls 可以是单个字符串或字符串列表。"""
     urls = set(history.get("urls", []))
     if isinstance(new_urls, str):
@@ -49,8 +49,14 @@ def save_history(history: dict, new_urls) -> None:
     if len(updated) > HISTORY_MAX:
         updated = updated[-HISTORY_MAX:]
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    data = {"urls": updated, "last_sent_date": today}
+    for k in ("last_error_date", "last_error_msg"):
+        if history.get(k):
+            data[k] = history[k]
+    if extra:
+        data.update(extra)
     HISTORY_PATH.write_text(
-        json.dumps({"urls": updated, "last_sent_date": today}, indent=2, ensure_ascii=False),
+        json.dumps(data, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
 
@@ -64,7 +70,7 @@ def extract_recommended_url(html: str) -> str | None:
 # ─────────────────────────── 抓取 RSS 新闻 / 博客 ───────────────────────────
 
 def _fetch_feeds(feeds: dict, hours: int, per_source: int,
-                 arxiv_keywords: list[str]) -> list[dict]:
+                 arxiv_keywords: list[str], filtered_names=()) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
     articles = []
 
@@ -88,7 +94,8 @@ def _fetch_feeds(feeds: dict, hours: int, per_source: int,
                 summary = entry.get("summary", "")
                 text = (title + " " + summary).lower()
 
-                if source.lower().startswith("arxiv") and not any(kw in text for kw in arxiv_keywords):
+                if (source.lower().startswith("arxiv") or source in filtered_names) \
+                        and not any(kw in text for kw in arxiv_keywords):
                     continue
 
                 articles.append({
@@ -105,16 +112,21 @@ def _fetch_feeds(feeds: dict, hours: int, per_source: int,
 
 
 def fetch_recent_articles(cfg: dict) -> list[dict]:
-    """抓 24h 新闻；如果太少（周末/凌晨常见）就自动把窗口放宽到 48h/72h，避免邮件空荡荡。"""
+    """抓新闻：先在 news_hours 窗口抓；素材不足 news_target 就放宽到 48/72 小时，避免邮件内容太少。"""
     d = cfg["digest"]
     feeds, kw = cfg["news_feeds"], cfg["arxiv_keywords"]
     per_source = d["news_per_source"]
-    articles = _fetch_feeds(feeds, d["news_hours"], per_source, kw)
-    for extra_hours in (48, 72):
-        if len(articles) >= 12:
+    target = int(d.get("news_target", 25))
+    filtered = list(cfg.get("filtered_feeds") or [])
+    hours_list = [d["news_hours"]] + [h for h in (48, 72) if h > d["news_hours"]]
+
+    articles = []
+    for hours in hours_list:
+        articles = _fetch_feeds(feeds, hours, per_source, kw, filtered)
+        if len(articles) >= target:
+            print(f"    素材 {len(articles)} 条（{hours}h 窗口，已达目标 {target}）")
             break
-        print(f"    24h 内新闻偏少({len(articles)} 条)，把窗口放宽到 {extra_hours}h 再抓…")
-        articles = _fetch_feeds(feeds, extra_hours, per_source, kw)
+        print(f"    {hours}h 窗口仅 {len(articles)} 条 < 目标 {target}，放宽窗口重试…")
     return articles
 
 
@@ -289,7 +301,7 @@ def summarize(articles: list[dict], blog_candidates: list[dict],
 
 请按以下六个部分组织内容，严格输出 HTML（不要 markdown 代码块、不要 ```html 标记、不要任何前言后语）：
 
-第一部分：📌 重点新闻（10-15 条，选最重要最有信息量的，优先与你关注方向相关的）
+第一部分：📌 重点新闻（15-20 条，选最重要最有信息量的，优先与你关注方向相关的）
 每条写足、写具体：
 - 「事件」1-2 句：讲清到底发生了什么，带具体名字/数字，不绕弯子；
 - 「看点」2-3 句：为什么值得关注、影响谁、影响多大，落到实处的判断；
@@ -357,18 +369,33 @@ HTML 模板如下（样式 class 必须原样保留，内容替换为你写的�
     if provider == "gemini":
         from google import genai as google_genai
         from google.genai import types as genai_types
-        model = d.get("gemini_model", "gemini-2.0-flash")
+        import time as _time
+
         client = google_genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-        response = client.models.generate_content(
-            model=model,
-            contents=prompt,
-            config=genai_types.GenerateContentConfig(max_output_tokens=d["max_tokens"]),
-        )
-        text = response.text
-        if not text:
-            finish = (response.candidates[0].finish_reason if response.candidates else "no candidates")
-            raise RuntimeError(f"Gemini 返回空内容 (finish_reason={finish})")
-        return text
+        models = [d.get("gemini_model")] + list(d.get("gemini_fallback_models") or [])
+        models = list(dict.fromkeys([m for m in models if m]))
+        last_err = None
+        for model in models:
+            for attempt in range(3):
+                try:
+                    response = client.models.generate_content(
+                        model=model,
+                        contents=prompt,
+                        config=genai_types.GenerateContentConfig(max_output_tokens=d["max_tokens"]),
+                    )
+                    text = response.text
+                    if text:
+                        if not (model == models[0] and attempt == 0):
+                            print(f"    [gemini] {model} 第 {attempt + 1} 次尝试成功")
+                        return text
+                    last_err = RuntimeError(f"{model} 返回空内容")
+                    print(f"    [gemini] {model} 第 {attempt + 1} 次返回空内容", file=sys.stderr)
+                except Exception as e:
+                    last_err = e
+                    print(f"    [gemini] {model} 第 {attempt + 1} 次失败: {str(e)[:180]}", file=sys.stderr)
+                if attempt < 2:
+                    _time.sleep(15 * (attempt + 1))   # 503/429 稍等再试
+        raise RuntimeError(f"Gemini 所有模型与重试均失败：{last_err}")
 
     if provider == "anthropic":
         import anthropic
@@ -502,6 +529,25 @@ def send_email(html_body: str, cfg: dict) -> None:
             server.sendmail(sender, recipient, msg.as_string())
 
 
+def notify_failure(cfg: dict, history: dict, err: str) -> None:
+    """生成/发送失败时：每天最多发一封简短提示，且退出码保持 0，避免 GitHub 天天发失败邮件。"""
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if history.get("last_error_date") == today:
+        print("    今天已发过失败提示，本次静默等待下个整点重试。")
+        return
+    body = (
+        "<h2>📡 AI Daily Digest · 今日生成失败</h2>"
+        "<p>今天的简报没能生成，原因（截断）：</p>"
+        f"<pre style=\"white-space:pre-wrap;font-size:13px;background:#f6f6f8;padding:12px;"
+        f"border-radius:6px\">{err[:300]}</pre>"
+        "<p>系统会在下一个整点自动重试（cron 每 15 分钟一次）；若明天仍失败，"
+        "可去仓库 Actions 页面看日志。</p>"
+    )
+    send_email(body, cfg)
+    save_history(history, [], extra={"last_error_date": today, "last_error_msg": err[:300]})
+    print("    已发送失败提示邮件（今天不再重复发）。")
+
+
 # ─────────────────────────── 主流程 ───────────────────────────
 
 if __name__ == "__main__":
@@ -529,10 +575,26 @@ if __name__ == "__main__":
 
     provider = cfg.get("provider", "gemini")
     print(f"4/4 用 {provider} 生成简报...")
-    summary = summarize(articles, blog_candidates, repos, cfg)
+    try:
+        summary = summarize(articles, blog_candidates, repos, cfg)
+    except Exception as e:
+        print(f"[ERROR] 生成失败：{e}", file=sys.stderr)
+        try:
+            notify_failure(cfg, history, str(e))
+        except Exception as e2:
+            print(f"[ERROR] 失败提示邮件也发不出去：{e2}", file=sys.stderr)
+        sys.exit(0)   # 关键：不判失败，下一个整点 cron 会自动重试
 
     print("发送邮件...")
-    send_email(summary, cfg)
+    try:
+        send_email(summary, cfg)
+    except Exception as e:
+        print(f"[ERROR] 邮件发送失败：{e}", file=sys.stderr)
+        try:
+            notify_failure(cfg, history, f"SMTP: {e}")
+        except Exception:
+            pass
+        sys.exit(0)
 
     # 记录已推送链接（新闻 + 推荐博客 + GitHub 新项目），避免重复
     new_urls = [a["url"] for a in articles]
@@ -540,6 +602,6 @@ if __name__ == "__main__":
     if recommended:
         new_urls.append(recommended)
     new_urls += [r["url"] for r in repos]
-    save_history(history, new_urls)
+    save_history(history, new_urls, extra={"last_error_date": "", "last_error_msg": ""})
 
     print(f"完成！已发送并记录 {len(new_urls)} 条链接。")
