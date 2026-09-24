@@ -1,0 +1,23 @@
+name: 🔍 模型可用性探测
+
+# 诊断用：在云端列出 Gemini 模型并逐个试跑，找出当前可用的降级模型
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: pip install google-genai
+      - name: 逐个探测模型
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python probe_models.py
