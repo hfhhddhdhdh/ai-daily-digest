@@ -67,6 +67,12 @@ def extract_recommended_url(html: str) -> str | None:
     return match.group(1) if match else None
 
 
+def extract_used_urls(html: str, candidates) -> list[str]:
+    """只挑出「真正在邮件里出现」的候选链接；未展示的留给下次推，避免素材被白白消耗。"""
+    hrefs = set(re.findall(r'href="([^"]+)"', html))
+    return [u for u in candidates if u in hrefs]
+
+
 # ─────────────────────────── 抓取 RSS 新闻 / 博客 ───────────────────────────
 
 def _fetch_feeds(feeds: dict, hours: int, per_source: int,
@@ -615,12 +621,12 @@ if __name__ == "__main__":
             pass
         sys.exit(0)
 
-    # 记录已推送链接（新闻 + 推荐博客 + GitHub 新项目），避免重复
-    new_urls = [a["url"] for a in articles]
+    # 只记录「邮件里真正出现」的链接（新闻 + 推荐博客 + GitHub 项目），未展示的留给下次
+    new_urls = extract_used_urls(summary, [a["url"] for a in articles])
     recommended = extract_recommended_url(summary)
     if recommended:
         new_urls.append(recommended)
-    new_urls += [r["url"] for r in repos]
+    new_urls += extract_used_urls(summary, [r["url"] for r in repos])
     save_history(history, new_urls, extra={"last_error_date": "", "last_error_msg": ""})
 
-    print(f"完成！已发送并记录 {len(new_urls)} 条链接。")
+    print(f"完成！已发送，记录 {len(new_urls)} 条已展示链接（素材 {len(articles)} 条，未展示的留待下次）。")
