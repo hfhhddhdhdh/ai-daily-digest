@@ -9,7 +9,12 @@ on:
   workflow_dispatch:      # 手动触发（忽略时间检查，立即发送，用于测试）
 
 permissions:
-  contents: write         # 允许把 sent_history.json 自动 commit 回仓库
+  contents: write         # 允许把 sent_history.json / last_digest.html 自动 commit 回仓库
+
+# 避免前一次运行还没结束就叠加新运行（叠加会造成 SMTP 并发登录被 163 风控）
+concurrency:
+  group: ai-daily-digest
+  cancel-in-progress: false
 
 jobs:
   send-digest:
@@ -62,11 +67,12 @@ jobs:
           GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
         run: python fetch_news.py
 
-      - name: 自动提交去重记录
+      - name: 自动提交去重记录与最新简报
         if: steps.timecheck.outputs.should_send == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sent_history.json
-          git diff --staged --quiet || git commit -m "chore: update sent history [skip ci]"
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: update sent history + latest digest [skip ci]"
+          git pull --rebase --autostash origin main || true
           git push

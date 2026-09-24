@@ -375,8 +375,8 @@ HTML 模板如下（样式 class 必须原样保留，内容替换为你写的�
         models = [d.get("gemini_model")] + list(d.get("gemini_fallback_models") or [])
         models = list(dict.fromkeys([m for m in models if m]))
         last_err = None
-        for model in models:
-            for attempt in range(3):
+        for rnd in range(2):        # 两轮：每轮把所有模型各试一次，保证备选模型不被长重试拖住
+            for model in models:
                 try:
                     response = client.models.generate_content(
                         model=model,
@@ -385,16 +385,15 @@ HTML 模板如下（样式 class 必须原样保留，内容替换为你写的�
                     )
                     text = response.text
                     if text:
-                        if not (model == models[0] and attempt == 0):
-                            print(f"    [gemini] {model} 第 {attempt + 1} 次尝试成功")
+                        if rnd or model != models[0]:
+                            print(f"    [gemini] {model} 成功（第 {rnd + 1} 轮）")
                         return text
                     last_err = RuntimeError(f"{model} 返回空内容")
-                    print(f"    [gemini] {model} 第 {attempt + 1} 次返回空内容", file=sys.stderr)
+                    print(f"    [gemini] {model} 返回空内容", file=sys.stderr)
                 except Exception as e:
                     last_err = e
-                    print(f"    [gemini] {model} 第 {attempt + 1} 次失败: {str(e)[:180]}", file=sys.stderr)
-                if attempt < 2:
-                    _time.sleep(15 * (attempt + 1))   # 503/429 稍等再试
+                    print(f"    [gemini] {model} 第 {rnd + 1} 轮失败: {str(e)[:180]}", file=sys.stderr)
+                _time.sleep(8)
         raise RuntimeError(f"Gemini 所有模型与重试均失败：{last_err}")
 
     if provider == "anthropic":
@@ -486,6 +485,9 @@ h2 { color: #0f0f1a; margin-top: 0; font-size: 21px; line-height: 1.5; }
 
 
 def send_email(html_body: str, cfg: dict) -> None:
+    """发信；163 偶发 535 风控，这里做 3 次重试 + 退避。"""
+    import time as _time
+
     today = datetime.now().strftime("%Y-%m-%d")
     subject = f"📡 AI Daily Digest · {today}"
 
@@ -500,6 +502,12 @@ def send_email(html_body: str, cfg: dict) -> None:
   <div class="footer">AI Daily Digest · Gemini + GitHub Actions · 每天早上自动发送</div>
 </div>
 </body></html>"""
+
+    # 无论邮件是否成功发出，都把成品存一份到仓库，网页也能看
+    try:
+        (Path(__file__).parent / "last_digest.html").write_text(full_html, encoding="utf-8")
+    except Exception as e:
+        print(f"[WARN] 保存 last_digest.html 失败: {e}", file=sys.stderr)
 
     smtp_cfg = cfg.get("smtp") or {}
     host = smtp_cfg.get("host", "smtp-mail.outlook.com")
@@ -516,17 +524,28 @@ def send_email(html_body: str, cfg: dict) -> None:
     msg["To"] = recipient
     msg.attach(MIMEText(full_html, "html", "utf-8"))
 
-    if use_ssl:
-        with smtplib.SMTP_SSL(host, port, timeout=60) as server:
-            server.login(sender, password)
-            server.sendmail(sender, recipient, msg.as_string())
-    else:
-        with smtplib.SMTP(host, port, timeout=60) as server:
-            server.ehlo()
-            server.starttls(context=ssl.create_default_context())
-            server.ehlo()
-            server.login(sender, password)
-            server.sendmail(sender, recipient, msg.as_string())
+    last_err = None
+    for attempt in range(3):
+        try:
+            if use_ssl:
+                with smtplib.SMTP_SSL(host, port, timeout=60) as server:
+                    server.login(sender, password)
+                    server.sendmail(sender, recipient, msg.as_string())
+            else:
+                with smtplib.SMTP(host, port, timeout=60) as server:
+                    server.ehlo()
+                    server.starttls(context=ssl.create_default_context())
+                    server.ehlo()
+                    server.login(sender, password)
+                    server.sendmail(sender, recipient, msg.as_string())
+            print(f"    邮件已发送 → {recipient}")
+            return
+        except Exception as e:
+            last_err = e
+            print(f"    [smtp] 第 {attempt + 1} 次失败: {str(e)[:160]}", file=sys.stderr)
+            if attempt < 2:
+                _time.sleep(20 * (attempt + 1))
+    raise RuntimeError(f"SMTP 三次尝试均失败：{last_err}")
 
 
 def notify_failure(cfg: dict, history: dict, err: str) -> None:
