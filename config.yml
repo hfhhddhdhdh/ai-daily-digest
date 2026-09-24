@@ -152,7 +152,7 @@ arxiv_keywords:
 
 digest:
   news_hours: 24          # 新闻回溯窗口（小时）；素材不够 news_target 会自动放宽到 48/72h
-  news_target: 25         # 目标新闻素材量
+  news_target: 35         # 目标新闻素材量
   blog_days: 90           # 博客回溯窗口（天）
   news_per_source: 60     # 每个新闻源最多取几条
   blog_per_source: 20     # 每个博客最多取几条
@@ -165,5 +165,5 @@ digest:
     - gemini-3.6-flash
   anthropic_model: claude-sonnet-4-6
   deepseek_model: deepseek-chat
-  max_tokens: 12000       # 输出上限
+  max_tokens: 16000       # 输出上限（新闻 20-25 条需要更大空间）
   output_language: 中文   # 固定中文；想试英文可改 English
