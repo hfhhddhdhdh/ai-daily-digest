@@ -490,8 +490,42 @@ h2 { color: #0f0f1a; margin-top: 0; font-size: 21px; line-height: 1.5; }
 """
 
 
+def _build_senders(cfg: dict) -> list[dict]:
+    """主发信通道 + 备用通道（config.smtp_fallbacks + SMTP2_/SMTP3_ 环境变量），谁能发就走谁。"""
+    senders = []
+
+    primary = cfg.get("smtp") or {}
+    if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASSWORD"):
+        senders.append({
+            "name": primary.get("name", "主通道"),
+            "host": primary.get("host", "smtp-mail.outlook.com"),
+            "port": int(primary.get("port", 587)),
+            "ssl": bool(primary.get("ssl", False)),
+            "user": os.environ["SMTP_USER"],
+            "password": os.environ["SMTP_PASSWORD"],
+        })
+
+    for idx, fb in enumerate(cfg.get("smtp_fallbacks") or [], start=2):
+        user = os.environ.get(f"SMTP{idx}_USER")
+        pwd = os.environ.get(f"SMTP{idx}_PASSWORD")
+        if user and pwd:
+            senders.append({
+                "name": fb.get("name", f"备用通道{idx}"),
+                "host": fb.get("host"),
+                "port": int(fb.get("port", 465)),
+                "ssl": bool(fb.get("ssl", True)),
+                "user": user,
+                "password": pwd,
+            })
+    return senders
+
+
 def send_email(html_body: str, cfg: dict) -> None:
-    """发信；163 偶发 535 风控，这里做 3 次重试 + 退避。"""
+    """发信：按「主通道 → 备用通道」依次尝试，每个通道内再重试 2 次。
+
+    163 对海外机房 IP 会持续 535 风控，所以支持配置备用通道（如 Gmail/QQ）；
+    备用通道凭证填在 GitHub Secrets：SMTP2_USER / SMTP2_PASSWORD。
+    """
     import time as _time
 
     today = datetime.now().strftime("%Y-%m-%d")
@@ -515,43 +549,41 @@ def send_email(html_body: str, cfg: dict) -> None:
     except Exception as e:
         print(f"[WARN] 保存 last_digest.html 失败: {e}", file=sys.stderr)
 
-    smtp_cfg = cfg.get("smtp") or {}
-    host = smtp_cfg.get("host", "smtp-mail.outlook.com")
-    port = int(smtp_cfg.get("port", 587))
-    use_ssl = bool(smtp_cfg.get("ssl", False))
+    senders = _build_senders(cfg)
+    if not senders:
+        raise RuntimeError("没有任何可用的发信通道（缺少 SMTP_USER/SMTP_PASSWORD）")
 
-    sender = os.environ["SMTP_USER"]
-    password = os.environ["SMTP_PASSWORD"]
-    recipient = os.environ.get("RECIPIENT_EMAIL") or sender
+    recipient = os.environ.get("RECIPIENT_EMAIL") or senders[0]["user"]
 
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = recipient
-    msg.attach(MIMEText(full_html, "html", "utf-8"))
+    errors = []
+    for s in senders:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = s["user"]
+        msg["To"] = recipient
+        msg.attach(MIMEText(full_html, "html", "utf-8"))
 
-    last_err = None
-    for attempt in range(3):
-        try:
-            if use_ssl:
-                with smtplib.SMTP_SSL(host, port, timeout=60) as server:
-                    server.login(sender, password)
-                    server.sendmail(sender, recipient, msg.as_string())
-            else:
-                with smtplib.SMTP(host, port, timeout=60) as server:
-                    server.ehlo()
-                    server.starttls(context=ssl.create_default_context())
-                    server.ehlo()
-                    server.login(sender, password)
-                    server.sendmail(sender, recipient, msg.as_string())
-            print(f"    邮件已发送 → {recipient}")
-            return
-        except Exception as e:
-            last_err = e
-            print(f"    [smtp] 第 {attempt + 1} 次失败: {str(e)[:160]}", file=sys.stderr)
-            if attempt < 2:
-                _time.sleep(20 * (attempt + 1))
-    raise RuntimeError(f"SMTP 三次尝试均失败：{last_err}")
+        for attempt in range(2):
+            try:
+                if s["ssl"]:
+                    with smtplib.SMTP_SSL(s["host"], s["port"], timeout=60) as server:
+                        server.login(s["user"], s["password"])
+                        server.sendmail(s["user"], recipient, msg.as_string())
+                else:
+                    with smtplib.SMTP(s["host"], s["port"], timeout=60) as server:
+                        server.ehlo()
+                        server.starttls(context=ssl.create_default_context())
+                        server.ehlo()
+                        server.login(s["user"], s["password"])
+                        server.sendmail(s["user"], recipient, msg.as_string())
+                print(f"    邮件已发送 → {recipient}（通道：{s['name']} {s['host']}）")
+                return
+            except Exception as e:
+                errors.append(f"{s['name']}: {str(e)[:120]}")
+                print(f"    [smtp][{s['name']}] 第 {attempt + 1} 次失败: {str(e)[:150]}", file=sys.stderr)
+                if attempt == 0:
+                    _time.sleep(15)
+    raise RuntimeError("所有发信通道均失败：" + " | ".join(errors))
 
 
 def notify_failure(cfg: dict, history: dict, err: str) -> None:

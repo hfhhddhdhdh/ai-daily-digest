@@ -115,6 +115,15 @@ smtp:
   port: 465
   ssl: true             # 465 端口用 SSL=true；587 端口用 STARTTLS（ssl: false）
 
+# 备用发信通道：主通道被风控（163 对海外机房 IP 会持续 535）时自动改用它
+# 凭证放在 GitHub Secrets：SMTP2_USER / SMTP2_PASSWORD
+# Gmail 用「应用密码」（需先开两步验证）；QQ 邮箱用「授权码」
+smtp_fallbacks:
+  - name: Gmail
+    host: smtp.gmail.com
+    port: 465
+    ssl: true
+
 
 # ──────────────────────────────────────────────
 #  STEP 6 · 发送时间与模型（一般不用再改）
