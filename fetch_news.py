@@ -647,11 +647,15 @@ if __name__ == "__main__":
         send_email(summary, cfg)
     except Exception as e:
         print(f"[ERROR] 邮件发送失败：{e}", file=sys.stderr)
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        first_today = history.get("last_error_date") != today
         try:
             notify_failure(cfg, history, f"SMTP: {e}")
         except Exception:
-            pass
-        sys.exit(0)
+            save_history(history, [], extra={"last_error_date": today,
+                                             "last_error_msg": f"SMTP: {e}"[:300]})
+        # 每天第一次真失败 → 让 GitHub 报一次红（只通知一次，不再刷屏）；后续静默重试
+        sys.exit(1 if first_today else 0)
 
     # 只记录「邮件里真正出现」的链接（新闻 + 推荐博客 + GitHub 项目），未展示的留给下次
     new_urls = extract_used_urls(summary, [a["url"] for a in articles])
