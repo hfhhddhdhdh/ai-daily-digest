@@ -520,11 +520,12 @@ def _build_senders(cfg: dict) -> list[dict]:
     return senders
 
 
-def send_email(html_body: str, cfg: dict) -> None:
+def send_email(html_body: str, cfg: dict, archive: bool = True) -> None:
     """发信：按「主通道 → 备用通道」依次尝试，每个通道内再重试 2 次。
 
     163 对海外机房 IP 会持续 535 风控，所以支持配置备用通道（如 Gmail/QQ）；
     备用通道凭证填在 GitHub Secrets：SMTP2_USER / SMTP2_PASSWORD。
+    archive=False 时不会覆盖 last_digest.html（供发信测试用）。
     """
     import time as _time
 
@@ -544,10 +545,11 @@ def send_email(html_body: str, cfg: dict) -> None:
 </body></html>"""
 
     # 无论邮件是否成功发出，都把成品存一份到仓库，网页也能看
-    try:
-        (Path(__file__).parent / "last_digest.html").write_text(full_html, encoding="utf-8")
-    except Exception as e:
-        print(f"[WARN] 保存 last_digest.html 失败: {e}", file=sys.stderr)
+    if archive:
+        try:
+            (Path(__file__).parent / "last_digest.html").write_text(full_html, encoding="utf-8")
+        except Exception as e:
+            print(f"[WARN] 保存 last_digest.html 失败: {e}", file=sys.stderr)
 
     senders = _build_senders(cfg)
     if not senders:

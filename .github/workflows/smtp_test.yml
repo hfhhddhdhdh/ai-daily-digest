@@ -1,0 +1,27 @@
+name: ✉️ 发信通道测试
+
+# 诊断用：30 秒验证 SMTP 是否能发出（自动按主/备通道依次尝试）
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smtp-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: pip install pyyaml
+      - name: 测试发信
+        env:
+          SMTP_USER:        ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD:    ${{ secrets.SMTP_PASSWORD }}
+          SMTP2_USER:       ${{ secrets.SMTP2_USER }}
+          SMTP2_PASSWORD:   ${{ secrets.SMTP2_PASSWORD }}
+          RECIPIENT_EMAIL:  ${{ secrets.RECIPIENT_EMAIL }}
+        run: python smtp_test.py
