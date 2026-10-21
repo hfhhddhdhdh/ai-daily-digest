@@ -54,234 +54,245 @@ h2 { color: #0f0f1a; margin-top: 0; font-size: 21px; line-height: 1.5; }
 <body>
 <div class="wrapper">
   <div class="header"><h1>📡 AI Daily Digest</h1></div>
-  <div class="body"><h2>📡 AI Daily Digest · 2026年10月20日</h2>
-<p class="intro">新闻 67 条 · 新项目 8 个 · 聚焦 大语言模型与推理模型、AI Agent（智能体）与自动化、多模态与视频生成、开源模型生态（本地部署）、具身智能与机器人</p>
+  <div class="body"><h2>📡 AI Daily Digest · 2026年10月21日</h2>
+<p class="intro">新闻 81 条 · 新项目 8 个 · 聚焦 大语言模型与推理模型、AI Agent（智能体）与自动化、多模态与视频生成、开源模型生态（本地部署）、具身智能与机器人</p>
 
 <div class="section-title">📌 重点新闻</div>
 <div class="item">
-  <h3><a href="https://the-decoder.com/minimax-m3-1-flash-shows-chinas-ai-price-race-has-no-floor-in-sett/">MiniMax M3.1 Flash Shows China's AI Price Race Has No Floor in Sight</a></h3>
-  <span class="meta">来源：The Decoder · 2026-10-19</span>
-  <p><strong>事件：</strong>MiniMax 发布 M3.1 Flash 模型，采用 428B MoE 架构（23B 激活参数），API 价格压至每百万输入 Token 仅需 0.15 美元，性能大幅超越前代。</p>
-  <p><strong>看点：</strong>这说明国内 AI 价格战已经杀红了眼，完全没有底线。超低价格配上极强的编程和推理能力，直接给开发者和企业省下了真金白银。</p>
-  <p><strong>怎么看：</strong>卷价格是好事，但长期看技术创新和商业闭环同样重要，这种“白菜价”让中小团队也能毫无压力地上马复杂 AI 应用。</p>
+  <h3><a href="https://the-decoder.com/deepseek-open-sources-the-inference-engine-that-powers-its-fastest-and-cheapest-ai-model/">Deepseek open-sources the inference engine that powers its fastest and cheapest AI model</a></h3>
+  <span class="meta">来源：The Decoder · 2026-10-20 18:56 UTC</span>
+  <p><strong>事件：</strong>DeepSeek正式开源了为其V4.1-Flash模型提供支撑的推理框架DeepInfer，基于Apache 2.0协议发布，主攻NVIDIA SM100 GPU和华为昇腾950 NPU。</p>
+  <p><strong>看点：</strong>这直接动摇了西方商业大厂的利润根基，将推理成本和能耗压到新低，给OpenAI和Anthropic带来极大的价格战压力。</p>
+  <p><strong>怎么看：</strong>开源生态在推理侧的内卷速度远超预期，国内大厂在算力受限下倒逼出的工程优化，正在变成全球开源标配。</p>
+  <p class="tag">关联：与 DeepSeek 遭美联邦机构封禁的新闻形成鲜明对比。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/kling-ai-drops-version-4-0-with-stereo-audio-multilingual-lip-sync-and-a-lighter-flash-variant/">Kling AI Drops Version 4.0 with Stereo Audio, Multilingual Lip Sync, and a Lighter Flash Variant</a></h3>
-  <span class="meta">来源：The Decoder · 2026-10-19</span>
-  <p><strong>事件：</strong>快手可灵 AI 发布 4.0 版本，支持生成最长 30 秒的视频，并加入立体声、多语言对口型以及轻量级 Flash 变体。</p>
-  <p><strong>看点：</strong>视频生成不仅在拼画质，现在连音效和对口型这种后期痛点都被一站式搞定了，短视频创作者和独立导演的生产力将迎来质的飞跃。</p>
-  <p><strong>怎么看：</strong>虽然各家视频模型在长视频和一致性上各有千秋，但可灵在实用功能上的迭代速度绝对走在行业最前沿。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/anthropic-pitches-ai-safety-bill-that-may-block-a-model-if-50-people-could-be-killed/">Anthropic pitches AI safety bill that may block a model if 50+ people could be killed</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 23:01 UTC</span>
+  <p><strong>事件：</strong>Anthropic向美方提交了一项AI安全法案草案，提议如果模型可能导致50人以上死亡则应被阻止发布，但条款中暗藏限制联邦机构在无法官许可下禁售模型的保护机制。</p>
+  <p><strong>看点：</strong>大模型头部企业正试图通过立法来确立行业门槛，名义上是防范灾难性风险，实则在为自己构筑合规护城河。</p>
+  <p><strong>怎么看：</strong>这种“既当运动员又当裁判”的安全合规游说，本质上是巨头巩固垄断地位的经典套路，中小开源团队要小心了。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/nscale-and-anthropic-are-reportedly-in-talks-for-yet-another-45b-compute-deal/">Nscale and Anthropic are reportedly in talks for yet another $45B compute deal</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>Anthropic 正在与 Nscale 洽谈高达 450 亿美元的巨额算力交易，继续加码基础设施建设。</p>
-  <p><strong>看点：</strong>大模型厂商的军备竞赛远未停止，几百亿美金的砸钱速度说明了算力依然是通往超级智能的绝对硬通货。</p>
-  <p><strong>怎么看：</strong>这种天价交易背后是巨大的资金链压力，中小算力云厂商和巨头都在豪赌未来的算力回报率。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/anthropics-cloud-partnerships-get-messy/">Anthropic’s cloud partnerships are getting messy</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 21:25 UTC</span>
+  <p><strong>事件：</strong>由于云厂商越来越将Anthropic视为潜在竞争对手，导致其在11月计划IPO前夕很难租到足够的算力，云伙伴关系陷入混乱。</p>
+  <p><strong>看点：</strong>大模型公司和云厂商的蜜月期正在结束，当AI公司开始做应用、云厂商自己下场做模型时，底层利益冲突全面爆发。</p>
+  <p><strong>怎么看：</strong>算力焦虑已经从“买不到芯片”演变成“租不到服务器”，自建算力集群将是头部AI公司的终极宿命。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/microsoft-says-ai-agents-are-like-insider-threats-as-frontier-models-cant-be-trusted/">Microsoft says AI agents are like insider threats as ‘frontier models can’t be trusted’</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>微软公开警告企业，由于前沿大模型不可信，员工使用的 AI 智能体就像公司内部的潜在威胁，必须加强监控。</p>
-  <p><strong>看点：</strong>当 AI Agent 获得企业系统的操作权限后，安全边界变得极其模糊，黑客利用或模型失控带来的破坏力不容小觑。</p>
-  <p><strong>怎么看：</strong>巨头开始正视 Agent 的安全隐患，企业在拥抱自动化的同时，防内鬼和防 AI 越权将成为新的IT刚需。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/spacexs-ai-business-is-beating-expectations/">SpaceX’s AI business is beating expectations</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 20:40 UTC</span>
+  <p><strong>事件：</strong>SpaceX第三季度实现盈利，净利润高达44亿美元，而AI业务成为了财报超预期的核心发动机。</p>
+  <p><strong>看点：</strong>航天硬件巨头通过AI实现了惊人的现金流转化，证明AI在工业制造和星链运营中的商业落地远比想象中快。</p>
+  <p><strong>怎么看：</strong>当硬科技公司把AI玩转时，纯软件AI公司的故事讲起来就没那么容易了。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/amazon-is-taking-biggest-shot-at-nvidia-yet-with-new-torchneuron-dev-tool/">Amazon is taking its biggest shot at Nvidia yet with new TorchNeuron dev tool</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>亚马逊推出全新开发工具 TorchNeuron，旨在打破英伟达在 PyTorch 生态上的垄断，吸引开发者使用其自研芯片。</p>
-  <p><strong>看点：</strong>英伟达最可怕的护城河不是芯片本身，而是软件生态。亚马逊这一招直接切入开发者痛点，试图分走生态蛋糕。</p>
-  <p><strong>怎么看：</strong>苦英伟达久矣的云厂商们正在合力撕开生态裂口，开发者乐见其成，毕竟多一个选择就少被割一次韭菜。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/openai-acquires-startup-orchestra-bio%e2%81%a0-to-beef-up-its-biotech-business/">OpenAI acquires startup Orchestra Bio⁠ to beef up its biotech business</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 20:35 UTC</span>
+  <p><strong>事件：</strong>OpenAI宣布收购初创公司Orchestra Bio，团队和技术将直接并入其生命科学研究模型Rosalind及相关实验规划分析工具中。</p>
+  <p><strong>看点：</strong>OpenAI正从通用的聊天机器人加速向垂直高壁垒的科学计算（AI for Science）领域渗透，生物医药是兵家必争之地。</p>
+  <p><strong>怎么看：</strong>买买买是巨头扩展生态的最快方式，大模型正在成为各行各业的底层科研外脑。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/hackers-hit-ai-coding-tool-opencode-running-up-charges-on-users-ai-accounts/">Hackers hit AI coding tool OpenCode, running up charges on users’ AI accounts</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>开源 AI 编程工具 OpenCode 遭到黑客攻击，用户的 API 密钥被盗，甚至导致 AI 账户被刷出巨额账单。</p>
-  <p><strong>看点：</strong>开源 AI 工具的安全性再次敲响警钟，开发者在享受便捷代码 Agent 的同时，账号和密钥管理正成为高危漏洞。</p>
-  <p><strong>怎么看：</strong>工具越智能，搞破坏的门槛就越低，安全防护跟不上，开源生态迟早要吃大亏。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/google-has-joined-amazon-in-attacking-nvidias-stronghold-with-ai-app-developers/">Google has joined Amazon in attacking Nvidia’s stronghold with AI app developers</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 18:38 UTC</span>
+  <p><strong>事件：</strong>继亚马逊之后，谷歌也发布了一款开发者工具，让PyTorch用户可以极其轻松地将AI应用从英伟达GPU迁移出去。</p>
+  <p><strong>看点：</strong>云巨头们联手拆台英伟达CUDA生态的动作越来越明牌，试图通过开源和兼容层打破显卡软件壁垒。</p>
+  <p><strong>怎么看：</strong>虽然英伟达硬件依然能打，但全行业去CUDA化的努力已经形成滔滔之势。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/nvidia-launches-new-open-models-to-run-agents-in-the-enterprise-and-on-pcs/">Nvidia launches new open models to run agents in the enterprise and on PCs</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>英伟达发布全新开源模型，专门用于在企业数据中心和个人 PC 上运行本地 AI 智能体。</p>
-  <p><strong>看点：</strong>英伟达不仅要卖硬件，还要通过开源模型把持端侧和企业私有化部署的入口，生态布局愈发立体。</p>
-  <p><strong>怎么看：</strong>硬件巨头亲自下场推开源小模型，本地部署生态在 2026 年迎来了最强推手。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/chatgpt-now-lets-you-lock-your-chats/">ChatGPT now lets you lock your chats</a></h3>
+  <span class="meta">Source：TechCrunch AI · 2026-10-20 18:36 UTC</span>
+  <p><strong>事件：</strong>ChatGPT推出聊天锁定功能，允许用户用密码或PIN码锁死特定的敏感对话，防止把手机交给亲友看其他内容时泄露隐私。</p>
+  <p><strong>看点：</strong>随着大模型成为贴身树洞和生活助理，隐私保护正从后端加密走向前端的“防社死”UI设计。</p>
+  <p><strong>怎么看：</strong>这虽然是个小功能，但极大地提升了用户把敏感私密话题交托给AI的安全感。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/the-neocloud-shakeout-is-coming-and-nvidia-has-the-most-to-lose/">The neocloud shakeout is coming, and Nvidia has the most to lose</a></h3>
-  <span class="meta">来源：The Decoder · 2026-10-19</span>
-  <p><strong>事件：</strong>新兴 AI 云服务商遭遇估值雪崩和 IPO 搁浅，行业面临大洗牌，数以百计的小云厂商预计仅剩 7 到 10 家能存活。</p>
-  <p><strong>看点：</strong>中小云厂商贡献了英伟达近半数的数据中心营收，一旦这些“新势力云”倒闭，英伟达的业绩也将承受巨大震荡。</p>
-  <p><strong>怎么看：</strong>野蛮生长的算力租赁泡沫正在破裂，烧钱买卡的游戏终究要回归商业现实。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/metas-muse-hits-10m-u-s-downloads-in-40-days-a-milestone-reached-by-only-11-other-apps-vibe/">Meta’s Muse hits 10M US downloads in 40 days, a milestone reached by only 11 other apps</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 17:12 UTC</span>
+  <p><strong>事件：</strong>Meta的AI应用Muse在美区上线40天内下载量突破1000万，留存率超越一众竞争对手，创下历史罕见纪录。</p>
+  <p><strong>看点：</strong>凭借社交网络矩阵的导流和过硬的产品体验，Meta在C端AI应用的争夺战中终于撕开了一道大口子。</p>
+  <p><strong>怎么看：</strong>流量巨头做AI应用有着天然的降维打击优势，OpenAI和Anthropic得小心被釜底抽薪。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/anthropic-plans-fund-for-workers-threatened-by-ai-musk-counters-with-spacex-shares-for-children/">Anthropic plans fund for workers threatened by AI, Musk counters with SpaceX shares for children</a></h3>
-  <span class="meta">来源：The Decoder · 2026-10-19</span>
-  <p><strong>事件：</strong>Anthropic 计划拿出 5% 的股份成立公共福利基金，用于直接补贴受 AI 威胁失业的工人，而马斯克则在 X 上反讽建议直接把股份分给公众或儿童。</p>
-  <p><strong>看点：</strong>AI 公司开始为失业潮“买单”做姿态，这既是道德博弈，也是为即将到来的 IPO 争夺社会舆论高地。</p>
-  <p><strong>怎么看：</strong>硅谷巨头的口水战解决不了结构性失业，但这至少说明 AI 带来的冲击已经逼得公司开始正视社会责任。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/eka-is-worth-1-45-billion-thanks-to-a-physical-ai-model-that-experts-raving/">Eka is worth $1.45B thanks to a physical AI model that has experts raving</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 13:00 UTC</span>
+  <p><strong>事件：</strong>具身智能初创公司Eka Robotics估值飙升至14.5亿美元，因其物理AI模型驱动的机械臂在抓取各类物品时表现出极度丝滑、拟人的手感。</p>
+  <p><strong>看点：</strong>具身智能赛道的资本狂热正在向具备“物理通用性”的底层大脑和灵巧手软硬件结合体倾斜。</p>
+  <p><strong>怎么看：</strong>机器人领域的ChatGPT时刻正在从PPT走向工厂车间，物理世界的数据收集正在迎来爆发。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.engadget.com/2290535/homeland-security-bans-deepseek-use-in-federal-civilian-agencies/">Homeland Security bans DeepSeek use in federal civilian agencies</a></h3>
-  <span class="meta">来源：Engadget · 2026-10-19</span>
-  <p><strong>事件：</strong>美国国土安全部宣布在其联邦民事机构中全面禁止使用 DeepSeek 模型。</p>
-  <p><strong>看点：</strong>地缘政治对开源和中国 AI 技术的合规限制进一步收紧，技术无国界的理想在政府级应用面前彻底碰壁。</p>
-  <p><strong>怎么看：</strong>合规风险已经成为海外企业采用中国开源或 API 模型时无法回避的达摩克利斯之剑。</p>
+  <h3><a href="https://the-decoder.com/elevenlabs-releases-two-new-speech-to-speech-models-designed-for-real-time-ai-conversations/">Elevenlabs releases two new speech-to-speech models designed for real-time AI conversations</a></h3>
+  <span class="meta">来源：The Decoder · 2026-10-20 19:03 UTC</span>
+  <p><strong>事件：</strong>ElevenLabs发布两款全新的语音到语音实时对话模型，其中v1 Max在Big Bench Audio上得分98.8%，响应延迟仅0.57秒。</p>
+  <p><strong>看点：</strong>实时语音交互的门槛被再次拉低，延迟杀进半秒内，直接把真人对话的流利感在机器上复现了。</p>
+  <p><strong>怎么看：</strong>语音Agent在客服、陪伴和车载场景的落地阻碍已经扫清，接下来全是杀手级应用的竞争。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.wired.com/story/disney-asked-character-ai-to-go-bankrupt-for-a-get-out-of-lawsuits-card/">Disney Asked Character.AI to Go Bankrupt for a Get-Out-of-Lawsuits Card</a></h3>
-  <span class="meta">来源：Wired · 2026-10-19</span>
-  <p><strong>事件：</strong>迪士尼曾试图让陷入严重法律诉讼（涉嫌引导未成年人自残）的 Character.AI 申请破产，以便安全收购其知识产权和安全技术。</p>
-  <p><strong>看点：</strong>巨头资本盘剥陷入困境的 AI 初创公司手段极其老辣，既想白嫖核心资产，又想甩掉官司烂摊子。</p>
-  <p><strong>怎么看：</strong>AI 陪伴类初创公司的合规雷区远比想象中深，稍有不慎不仅公司要完，连投资人和巨头都想连夜划清界限。</p>
+  <h3><a href="https://the-decoder.com/mistral-ai-launches-voxtral-3-a-full-voice-agent-stack-that-listens-thinks-and-talks-in-real-time/">Mistral AI launches Voxtral 3, a full voice agent stack that listens, thinks, and talks in real time</a></h3>
+  <span class="meta">来源：The Decoder · 2026-10-20 17:17 UTC</span>
+  <p><strong>事件：</strong>欧洲AI领头羊Mistral AI推出Voxtral 3，这是一套支持50多种语言、开箱即用的实时语音智能体技术栈，可私有化部署。</p>
+  <p><strong>看点：</strong>欧洲大模型厂商坚守开源和数据合规阵地，直接打包提供“听、想、说”全套SDK，给企业用户提供了闭源大厂之外的硬核选择。</p>
+  <p><strong>怎么看：</strong>对于注重数据隐私的欧洲和企业级客户来说，这种开箱即用的本地语音Agent栈是刚需。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.infoq.com/news/2026/10/embeddinggemma-2-multimodal/">EmbeddingGemma 2 Expands beyond Text to Support Code, Images, Video, and Audio</a></h3>
-  <span class="meta">来源：InfoQ · 2026-10-19</span>
-  <p><strong>事件：</strong>谷歌基于 Gemma 4 发布开源多模态嵌入模型 EmbeddingGemma 2，支持代码、图像、视频和音频，采用 Apache 2.0 协议。</p>
-  <p><strong>看点：</strong>端侧 RAG（检索增强生成）和语义搜索迎来重磅开源神器，开发者可以在本地高效处理全模态数据。</p>
-  <p><strong>怎么看：</strong>谷歌在开源端侧模型上持续加码，本地开发者又多了一个无需联网、隐私安全的强大基座。</p>
+  <h3><a href="https://the-decoder.com/openai-says-gpt-6-is-much-better-with-legacy-programming-languages-such-as-cobol-and-fortran/">OpenAI says GPT-6 is much better with legacy programming languages such as COBOL and Fortran</a></h3>
+  <span class="meta">来源：The Decoder · 2026-10-20 16:40 UTC</span>
+  <p><strong>事件：</strong>OpenAI披露其GPT-6系列模型（如GPT-6.1 Sol）在COBOL、Fortran等古董级编程语言上准确率高达97.9%，彻底解决了金融底层老代码升级的痛点。</p>
+  <p><strong>看点：</strong>大模型攻克了老旧系统的现代化改造这块硬骨头，这意味着银行和保险巨头们上云的成本将大幅下降。</p>
+  <p><strong>怎么看：</strong>别只盯着写Python网页，帮老行业重构几万行祖传代码才是AI真正能赚到大钱的地方。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.technologyreview.com/2026/10/19/1147149/we-were-looking-at-it-wrong-the-explosive-claim-thats-upended-the-ai-world/">“We were looking at it wrong”: The explosive claim that’s upended the AI world</a></h3>
-  <span class="meta">来源：MIT Tech Review · 2026-10-19</span>
-  <p><strong>事件：</strong>初创公司 Goodfire 研究员 Nick Cammarata 发表了一篇 2.6 万字的长文，提出了颠覆神经网络理解方式的爆炸性理论，引发整个 AI 界热议。</p>
-  <p><strong>看点：</strong>长期以来我们把大模型当成黑盒，而这项新研究试图从根本上解释神经网络内部的表征机制，堪称理论基础研究的一记惊雷。</p>
-  <p><strong>怎么看：</strong>当行业都在卷应用和算力时，基础科学层面的认知突破或许会彻底改变我们调教 AI 的方式。</p>
+  <h3><a href="https://arstechnica.com/tech-policy/2026/10/meta-drops-the-word-train-from-its-commercial-tos-after-ai-back backlash/">Meta drops the word "train" from its commercial TOS after AI backlash</a></h3>
+  <span class="meta">来源：Ars Technica AI · 2026-10-20 20:07 UTC</span>
+  <p><strong>事件：</strong>在遭遇强烈的业界反弹后，Meta被迫在其商业服务条款中删除了“训练（train）”字样，调整了AI数据抓取政策。</p>
+  <p><strong>看点：</strong>创作者和版权方对大厂无节制爬取数据的反抗正在逼退科技巨头，合规压力已经实实在在卡住了AI迭代的脖子。</p>
+  <p><strong>怎么看：</strong>文字游戏改不了抓取本质，数据版权官司在未来几年只会越来越激烈。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/tolan-snags-30m-for-its-ai-companion-that-helps-users-navigate-life/">Tolan snags $30M for its AI companion that helps users navigate life</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>AI 陪伴应用 Tolan 在拥有超过 25 万活跃用户后，再度获得 3000 万美元融资。</p>
-  <p><strong>看点：</strong>情感陪伴类 AI 在经历了初期的猎奇后，正朝着深度“生活导航”和高黏性方向演进，资本对赛道依然充满信心。</p>
-  <p><strong>怎么看：</strong>孤独经济永远是刚需，AI 伴侣正在从简单的聊天玩具变成真正的生活管家。</p>
+  <h3><a href="https://arstechnica.com/google/2026/10/geminis-personal-intelligence-is-coming-to-cars/">Gemini's Personal Intelligence is coming to cars</a></h3>
+  <span class="meta">来源：Ars Technica AI · 2026-10-20 20:00 UTC</span>
+  <p><strong>事件：</strong>谷歌宣布将其Gemini个人智能系统（Personal Intelligence）引入Android Auto及内置Google的汽车中。</p>
+  <p><strong>看点：</strong>座舱交互正式跨入“超级个人助理”阶段，AI开始跨设备接管用户的日程、偏好和实时路况决策。</p>
+  <p><strong>怎么看：</strong>车机是兵家必争的私密场景，谁先占领方向盘上的AI，谁就拿到了下一代硬件的入口。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/">People are using AI to make their smart TVs dumb again</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>由于不堪忍受智能电视里满屏的广告、数据追踪和卡顿的系统界面，部分用户开始利用 AI 智能体“去臃肿”，把智能电视变回傻瓜电视。</p>
-  <p><strong>看点：</strong>苦“万物皆可联网广告化”久矣的用户，开始用 AI 工具进行绝地反击，讽刺意味拉满。</p>
-  <p><strong>怎么看：</strong>技术的发展有时候不是为了更聪明，而是为了帮用户找回对设备的控制权，Agent 在这方面大有可为。</p>
+  <h3><a href="https://arstechnica.com/security/2026/10/meta-muse-exposes-users-personal-and-business-secrets-when-they-share-conversations/">Meta Muse exposes users' personal and business secrets when they share conversations</a></h3>
+  <span class="meta">来源：Ars Technica AI · 2026-10-20 12:33 UTC</span>
+  <p><strong>事件：</strong>由于安全漏洞，研究人员轻易访问了6800条Meta Muse用户的共享对话，其中包括大量敏感的个人和企业商业机密，Meta随即紧急暂停了分享功能。</p>
+  <p><strong>看点：</strong>C端AI应用野蛮生长背后，隐私泄露的翻车事故随时可能发生，大厂在设计分享机制时依然缺乏对大模型幻觉与上下文越权的敬畏。</p>
+  <p><strong>怎么看：</strong>“分享到社交网络”是AI应用的标配，但也成了把用户底裤扒光的最快途径。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/laplace-intelligence-red-teams-robots-and-self-driving-cars-before-they-hit-the-real-world/">Laplace Intelligence red-teams robots and self-driving cars before they hit the real world</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>密歇根大学孵化的初创公司 Laplace Intelligence 利用 AI 智能体和交互式仿真，在机器人和自动驾驶汽车上路前进行“红队”压力测试。</p>
-  <p><strong>看点：</strong>具身智能和自动驾驶落地前最缺的就是极端场景测试，用 AI 自动化生成攻击性测试用例解决了行业大痛点。</p>
-  <p><strong>怎么看：</strong>机器人要想真正走进现实物理世界，这种严苛的虚拟“极限虐待测试”是必经之路。</p>
+  <h3><a href="https://www.marktechpost.com/2026/10/20/google-torchtpu-open-source-native-pytorch-tpu/">Google Open-Sources TorchTPU, a Native PyTorch Backend for Cloud TPUs</a></h3>
+  <span class="meta">来源：MarkTechPost · 2026-10-20 15:22 UTC</span>
+  <p><strong>事件：</strong>谷歌与Meta联合开源了TorchTPU，这是云TPU的本地PyTorch后端，默认支持eager模式并通过torch.compile加速。</p>
+  <p><strong>看点：</strong>谷歌正在尽一切可能降低开发者使用其TPU硬件的门槛，把PyTorch社区直接往自家的芯片生态里拉。</p>
+  <p><strong>怎么看：</strong>打破英伟达垄断的不仅是国产芯片，谷歌这种砸生态底座的阳谋同样致命。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.engadget.com/2288133/robot-vacuum-major-privacy-problem-you-should-know/">Robot vacuums have a major privacy problem you should be aware of</a></h3>
-  <span class="meta">来源：Engadget · 2026-10-19</span>
-  <p><strong>事件：</strong>外媒警告称，现代扫地机器人内置的麦克风和摄像头在提升清扫效率的同时，带来了巨大的隐私泄露风险，用户数据存储和共享机制亟待透明化。</p>
-  <p><strong>看点：</strong>家里跑来跑去的扫地机实际上是个行走的监控器，用户为了便利不得不出卖家庭隐私。</p>
-  <p><strong>怎么看：</strong>具身智能进入家庭的第一步，隐私安全往往成了最薄弱的环节，硬件厂商不能装聋作哑。</p>
+  <h3><a href="https://www.marktechpost.com/2026/10/20/exa-3-0-search-api-lite/">Exa 3.0 Search API Tops Perplexity, Brave and Parallel on 8 Benchmarks</a></h3>
+  <span class="meta">来源：MarkTechPost · 2026-10-20 08:12 UTC</span>
+  <p><strong>事件：</strong>AI搜索引擎Exa发布3.0版本，引入更大的嵌入模型、动态高亮及每千次请求仅4美元的Exa Lite版本，在8项自测基准中夺魁。</p>
+  <p><strong>看点：</strong>面向AI Agent的搜索引擎正在向“更便宜、结构化更好”的方向狂飙，传统网页抓取正在被深度语义搜索替代。</p>
+  <p><strong>怎么看：</strong>Agent需要的是结构化数据而不是人类看的网页，AI搜索引擎的B端API才是真正的现金牛。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.wired.com/story/whatsapp-help-pages-leaked-hidden-instructions-for-a-meta-chatbot/">WhatsApp Help Pages Leaked Hidden Instructions for a Meta Chatbot</a></h3>
-  <span class="meta">来源：Wired · 2026-10-19</span>
-  <p><strong>事件：</strong>WhatsApp 官方帮助页面因漏洞泄露了约 80 页 Meta 聊天机器人的隐藏提示词和“绝对不能说的话”清单。</p>
-  <p><strong>看点：</strong>大厂对于 AI 助手的行为约束和边界设定再次被曝光，提示词工程的机密性在乌龙Bug面前形同虚设。</p>
-  <p><strong>怎么看：</strong>管住 AI 的嘴比训练它开口难得多，大厂在系统安全防线上的低级失误实在不应该。</p>
+  <h3><a href="https://www.marktechpost.com/2026/10/20/cloudflare-releases-clairic-a-system-one-extraction-model-on-workers-ai/">Cloudflare Releases Clairic, a System One Extraction Model on Workers AI</a></h3>
+  <span class="meta">来源：MarkTechPost · 2026-10-20 07:45 UTC</span>
+  <p><strong>事件：</strong>Cloudflare推出专为文档数据提取设计的轻量级AI模型Clairic，每百万输入代币仅收0.10美元且输出完全免费。</p>
+  <p><strong>看点：</strong>大模型在特定任务（如结构化数据提取）上正被极致的性价比边缘化，轻量专用模型正在抢占大语言模型的蛋糕。</p>
+  <p><strong>怎么看：</strong>别什么都用几百亿参数的大模型硬扛，边缘计算和轻量抽取模型才是企业降本增效的利器。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://arstechnica.com/gaming/2026/10/ai-game-clones-are-making-indie-developers-afraid-to-show-their-work/">AI game clones are making indie developers afraid to show their work</a></h3>
-  <span class="meta">来源：Ars Technica · 2026-10-19</span>
-  <p><strong>事件：</strong>由于 AI 可以极低成本快速生成游戏克隆，独立游戏开发者现在极其害怕在公开展示自己的Demo作品，生怕创意被一键抄袭。</p>
-  <p><strong>看点：</strong>AI 既是创作平权的利器，也成了山寨和抄袭的超级加速器，独立游戏圈正面临信任与生存危机。</p>
-  <p><strong>怎么看：</strong>当所有人都能量产平庸时，原创者的生存空间反而被极度挤压，版权保护机制已经彻底跟不上时代了。</p>
+  <h3><a href="https://www.wired.com/story/an-ai-agent-joined-a-listserv-of-top-internet-researchers-the-reply-all-chaos-is-still-unfolding/">An AI Agent Joined a Listserv of Top Internet Researchers. The Reply-All Chaos Is Still Unfolding</a></h3>
+  <span class="meta">来源：Wired AI · 2026-10-20 15:07 UTC</span>
+  <p><strong>事件：</strong>一个AI智能体意外混入了一家拥有7500名顶级互联网研究员的邮件列表（Listserv），引发了一场荒诞的“回复所有人”混乱。</p>
+  <p><strong>看点：</strong>当AI Agent开始自主接入人类的传统邮件和社交网络时，数字世界的边界管理规则彻底失效了。</p>
+  <p><strong>怎么看：</strong>这既是个滑稽的Bug，也是一个危险的信号——Autonomous Agent的社交通信权限必须被严加管束。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/tenstorrent-hits-6-2b-valuation-to-scale-open-weight-ai-chips/">Tenstorrent hits $6.2B valuation to scale open-weight AI chips</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>英伟达的强力挑战者 Tenstorrent 完成 15 亿美元融资，估值达到 62 亿美元，继续推动开源权重 AI 芯片的发展。</p>
-  <p><strong>看点：</strong>在英伟达垄断的硬件市场，开源芯片架构（如 RISC-V 和开源权重硬件）正在成为资本押注打破垄断的希望。</p>
-  <p><strong>怎么看：</strong>硬件开源化是削弱英伟达统治力的唯一解，虽然道阻且长，但资本已经在用脚投票。</p>
-</div>
-
-<div class="item">
-  <h3><a href="https://techcrunch.com/2026/10/19/embedded-ai-evaluators-wont-be-an-easy-solution-hugging-faces-policy-chief-says/">Embedded AI evaluators won’t be an easy solution, Hugging Face’s policy chief says</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-10-19</span>
-  <p><strong>事件：</strong>Hugging Face 政策负责人指出，在各大 AI 实验室内部安插“中立第三方观察员”（嵌入式 AI 评估员）并不是解决安全隐患的简单良方。</p>
-  <p><strong>看点：</strong>面对层出不穷的 AI 安全事故，行业试图引入类似“核查人员”的监督机制，但权责界定极其模糊。</p>
-  <p><strong>怎么看：</strong>让同行监督同行或者外部空降监督，在商业利益面前往往流于形式，AI 监管依然在摸着石头过河。</p>
+  <h3><a href="https://techcrunch.com/2026/10/20/yelp-can-now-call-on-your-behalf-to-check-wait-times-at-a-restaurant/">Yelp can now call on your behalf to check wait times at a restaurant</a></h3>
+  <span class="meta">来源：TechCrunch AI · 2026-10-20 11:00 UTC</span>
+  <p><strong>事件：</strong>大众点评美版Yelp在应用中嵌入了多项AI新功能，其中包括让AI代表用户打电话去餐厅查询实时排队情况。</p>
+  <p><strong>看点：</strong>AI Duet（代客拨打电话）的落地场景正在从小众尝鲜走向大众日常生活，生活服务软件正在全面Agent化。</p>
+  <p><strong>怎么看：</strong>以后人类再也不用亲自跟操着各地方言的餐厅前台费口舌了，AI替身之间的小红娘时代到了。</p>
 </div>
 
 <div class="section-title">📈 趋势分析</div>
 <div class="trend">
-  <h3>大模型价格战向下击穿，端侧与开源生态全面加速</h3>
-  <p>以 MiniMax M3.1 Flash 为代表的超低价 API 出现，标志着纯大模型推理成本已趋近于零。与此同时，英伟达与各大云厂商纷纷加码端侧开源模型与专属开发工具，推动 AI 从云端巨无霸向本地私有化和边缘计算快速下沉。一句话预判：大模型已彻底变成廉价基础设施，开发者重心正转向如何用更低的成本玩转端侧智能体。</p>
+  <h3>大模型推理成本崩塌与开源生态的极致下沉</h3>
+  <p><strong>现状证据：</strong>DeepSeek开源DeepInfer推理框架，Cloudflare推出极低成本的Clairic文档提取模型，各大厂商在边缘设备和推理端疯狂压榨成本。<br><strong>预判：</strong>“卖算力”和“卖大模型API”的暴利时代正在过去，AI正迅速演变为像水电一样的廉价底层基础设施。</p>
 </div>
 <div class="trend">
-  <h3>具身智能与 Agent 迎来“极限虐待测试”与安全防线构建</h3>
-  <p>随着 Agent 和机器人开始接管真实世界的生产与操作，安全隐患从“聊天幻觉”升级为“实质威胁”。无论是微软对 AI 内部威胁的警告，还是机器人仿真红队测试、CAD 物理验证论文的涌现，行业正在为 AI 穿上带刺的铠甲。一句话预判：2026 年下半年开始，谁能搞定 Agent 的安全沙箱与物理对齐，谁就能拿到企业级落地的最终船票。</p>
+  <h3>具身智能与物理AI进入高频融资与量产元年</h3>
+  <p><strong>现状证据：</strong>Eka Robotics估值达14.5亿美元，NVIDIA推出外科手术生成模拟，学术界密集涌现物理世界模型（如PhysCanvas、SceneRig）。<br><strong>预判：</strong>机器人正迎来各自的“ChatGPT时刻”，具身智能的竞争焦点正式从仿真训练转向跨场景的物理泛化能力。</p>
 </div>
 
 <div class="section-title">🔬 值得深挖</div>
 <div class="deep-read">
-  <h3><a href="https://arxiv.org/abs/2610.26846v1">GPT-6 Astra Is a Native VisuoTactile Policy for Contact-Rich Manipulation</a></h3>
-  <p><strong>核心贡献：</strong>该研究首次展示了多模态模型（如 GPT-6 Astra）能够直接解释基于视觉的触觉图像，并利用接触线索在 19 个模拟任务中进行少样本闭环控制，成功率高达 93.8%，超越了传统专用机器人策略。<strong>关注点：</strong>打通视觉与触觉的本地原生对齐，解决了机器人高难度接触操作的顽疾，具身智能正向着“有触觉的真人级灵巧手”大步迈进。</p>
+  <h3><a href="https://arxiv.org/abs/2610.28626v1">UniWALM: Unified World Action Language Model for Embodied Robot Control</a></h3>
+  <p><strong>核心贡献：</strong>将视频、动作和语言三种模态统一在一个Mixture-of-Transformers骨干网中，通过多模态同步去噪和闭环语言记忆，实现了无外部规划器的具身机器人控制。<br><strong>关注点：</strong>它打破了传统将VLM和机器人动作流水线割裂的做法，用“语言作为记忆”的思路解决了具身智能的长序列上下文难题，值得所有机器人算法团队精读。</p>
 </div>
 <div class="deep-read">
-  <h3><a href="https://arxiv.org/abs/2610.26847v1">WeAct: Dynamic Weight Switching as Agent Actions</a></h3>
-  <p><strong>核心贡献：</strong>提出 WeAct 框架，将独立能力特定的 LoRA 适配器训练与模型原生工具调用结合，让长周期 Agent 能够根据任务动态切换权重，避免了灾难性遗忘。<strong>关注点：</strong>在 8 个深度研究基准上，Qwen3-32B 配合 WeAct 比全量微调精度提升 6.2%，且计算开销更低，为构建全能型轻量 Agent 提供了教科书级的架构优化方案。</p>
+  <h3><a href="https://arxiv.org/abs/2610.28584v1">Beyond the Sequentiality Bottleneck: A Hybrid Diffusion-Autoregressive Framework for Efficient Multimodal Reasoning</a></h3>
+  <p><strong>核心贡献：</strong>提出了CoRAL混合框架，由扩散语言模型（DLM）并行生成多种推理轨迹规划，再由大型自回归模型（ARM）执行最优解，完美克服了自回归模型在长推理上的“顺序瓶颈”。<br><strong>关注点：</strong>该研究为多模态推理的提速指明了新方向，用扩散模型的并行优势对冲自回归模型的慢速缺陷，兼顾了效率与质量。</p>
+</div>
+<div class="deep-read">
+  <h3><a href="https://arxiv.org/abs/2610.28577v1">Cache Engineering for Agents</a></h3>
+  <p><strong>核心贡献：</strong>针对LLM智能体在长轨迹交互中KV Cache I/O和存储成本爆炸的痛点，提出了“缓存工程”（Cache Engineering），允许Agent直接控制活跃缓存而无需重新填充前缀。<br><strong>关注点：</strong>这是通往复杂、长周期AI Agent落地的重要工程突破，直接帮企业省下了巨额的算力和显存开销。</p>
 </div>
 
 <div class="section-title">📖 今日推荐博客</div>
 <div class="blog-pick">
-  <h3><a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev">Language Models for Text Classification: From Bag-of-Words to Jev</a></h3>
-  <span class="meta">Ahead of AI (Sebastian Raschka) · 2026-09-29</span>
-  <p class="blog-why">Sebastian Raschka 的技术博客一向以通俗易懂、图文并茂著称。这篇文章不仅带读者回顾了文本分类从远古词袋模型到现代大模型的演变史，还结合了最新的校准技术与手把手实验，是理解大模型分类与概率校准不可多得的深度指南。</p>
+  <h3><a href="https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek">Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China</a></h3>
+  <span class="meta">Interconnects (Nathan Lambert) · 2026-10-20 17:04 UTC</span>
+  <p class="blog-why">Nathan Lambert 总是能一针见血地梳理出开源生态最核心的动态。这篇文章全面复盘了 DeepSeek 最新开源动作如何逼迫西方开源生态反击，并深入剖析中美最新的监管博弈，是把握开源大模型风向不可多得的深度剖析。</p>
   <ul>
-    <li>清晰梳理了从 RNN、CNN 到 Transformer 以及现代决策模型的演进脉络。</li>
-    <li>深入浅出地讲解了概率校准（Calibration）在模型落地中的核心作用。</li>
-    <li>提供了包含准确率与效率对比的动手实验干货。</li>
+    <li>西方开源模型正在通过差异化路线发起对东方高性价比开源方案的反击。</li>
+    <li>DeepSeek 推理框架的开源直接拉高了全行业的基准性价比水位。</li>
+    <li>中美两国在 AI 软硬件出口与合规层面的监管细则正在深刻改变全球开发者格局。</li>
   </ul>
-  <p class="blog-audience">适合：AI 开发者、算法工程师以及想系统补习大模型基础的圈内人 · 阅读时间：约 25 分钟</p>
+  <p class="blog-audience">适合：开源模型研究者、独立开发者、AI 创业者 · 阅读时间：约 8 分钟</p>
 </div>
 
 <div class="section-title">⭐ GitHub 高星新项目</div>
 <div class="repo">
-  <h3><a href="https://github.com/simbasjungles/free-my-tv">simbasjungles/free-my-tv</a></h3>
-  <span class="meta">⭐ 481 · 语言: Java · 标签: android-tv, claude-code, no-ads, launcher</span>
-  <p><strong>是什么：</strong>这是一个专为 Google TV 和 Android TV 打造的极速、无广告主屏幕启动器，完全开源，且由 Claude Code 辅助开发，支持一键撤销。</p>
-  <p><strong>为什么值得关注：</strong>它直接切中了智能电视用户苦广告久矣的痛点，也是 AI 编程工具（Claude Code）实战开发完整应用的绝佳开源范本，适合折腾电视盒子和对 AI 辅助开发感兴趣的极客。</p>
+  <h3><a href="https://github.com/dominikmartn/harp">dominikmartn/harp</a></h3>
+  <span class="meta">⭐ 349 · 语言: Rust · 标签: —</span>
+  <p><strong>是什么：</strong>这是一个由 Rust 编写的非官方 Warp 分支工具，允许开发者把多个 Claude Code 和 Codex 智能体放在同一个侧边栏里并排运行，实时监控哪个Agent需要你的介入。</p>
+  <p><strong>为什么值得关注：</strong>随着程序员日常管理多个AI编程Agent成为常态，这种能够把不同AI工作流聚合成一个操作台的工具极大地提升了“多Agent监工”的效率，非常适合重度使用 Claude Code 的开发者。</p>
 </div>
 
 <div class="repo">
-  <h3><a href="https://github.com/AndreSzymanski15/ai-jailbreaks">AndreSzymanski15/ai-jailbreaks</a></h3>
-  <span class="meta">⭐ 415 · 语言: — · 标签: ai-safety, jailbreak, security, ollama</span>
-  <p><strong>是什么：</strong>收集了 35 个开箱即用的 AI 越狱提示词，覆盖 25 款以上的闭源前沿模型与开源权重 LLM，内含系统提示词、角色锁定和 Ollama Modelfiles。</p>
-  <p><strong>为什么值得关注：</strong>这是专为 AI 安全研究人员和红队测试准备的弹药库，能帮你快速测试自家部署的模型是否存在防御漏洞，防患于未然。</p>
+  <h3><a href="https://github.com/eagle-hq/EAGLE-4">eagle-hq/EAGLE-4</a></h3>
+  <span class="meta">⭐ 286 · 语言: Python · 标签: eagle, gpu, llm-inference, sglang, speculative-decoding, tokenspeed, vllm</span>
+  <p><strong>是什么：</strong>大名鼎鼎的投机解码加速框架 EAGLE 推出了第四代官方推理代码，深度适配 vLLM 和 SGLang 等主流高性能推理后端。</p>
+  <p><strong>为什么值得关注：</strong>在模型越来越大、推理速度要求越来越高的当下，投机解码是提升大模型吞吐、降低部署成本的利器，搞大模型本地部署和生产环境优化的工程师不容错过。</p>
 </div>
 
 <div class="repo">
-  <h3><a href="https://github.com/vercel-labs/fx0">vercel-labs/fx0</a></h3>
-  <span class="meta">⭐ 153 · 语言: TypeScript · 标签: —</span>
-  <p><strong>是什么：</strong>Vercel Labs 推出的轻量级设计智能体，基于 libfx 构建，用户只需描述想要的页面，Agent 就能直接将其写成一个完整的 HTML 单文件。</p>
-  <p><strong>为什么值得关注：</strong>Vercel 在前端 AI Agent 领域的又一次轻量化尝试，展示了“一句话生成网页”从概念走向极简工程落地的可能，前端开发人员值得保持关注。</p>
+  <h3><a href="https://github.com/abdiraimov-otabek/dashboard-design-skill">abdiraimov-otabek/dashboard-design-skill</a></h3>
+  <span class="meta">⭐ 80 · 语言: — · 标签: agent-skills, analytics, claude-code, dashboard, data-visualization, tailwindcss</span>
+  <p><strong>是什么：</strong>这是一个专为 Claude Code 设计的 Skill（技能包），提炼自 127 个真实上线的数据看板，能够指导 AI 自动生成包含 KPI 块、图表、日期选择器等整洁美观的仪表盘 UI。</p>
+  <p><strong>为什么值得关注：</strong>AI 写代码往往在前端 UI 审美上翻车，这个项目把专业的数据可视化设计规范做成了 Agent 技能，能大幅减少人类为 AI 擦屁股改前端样式的痛苦。</p>
 </div>
 
-<div class="closing"><strong>今日信号：</strong>大模型API价格彻底跌入“分厘时代”，逼迫行业全面转向端侧部署与拼刺刀式的 Agent 落地，而安全与物理对齐正在成为下一阶段的分水岭。</div></div>
+<div class="repo">
+  <h3><a href="https://github.com/lovisdotio/motion2code">lovisdotio/motion2code</a></h3>
+  <span class="meta">⭐ 75 · 语言: HTML · 标签: agent-skills, animation, claude-code, gsap, motion-design, svg, video-to-code</span>
+  <p><strong>是什么：</strong>另一个面向编程 Agent（如 Claude Code）的专业技能包，能够让 AI 逐帧比对动效设计视频，将其精准还原为循环播放的 SVG + GSAP 前端代码。</p>
+  <p><strong>为什么值得关注：</strong>动效转换一直是前端开发的苦差事，把设计视频直接喂给 AI 并通过该技能转成高质量代码，预示着 AI 正在向“看动画写实现”的精细化前端工作流挺进。</p>
+</div>
+
+<div class="repo">
+  <h3><a href="https://github.com/lesnolie/Tigris">lesnolie/Tigris</a></h3>
+  <span class="meta">⭐ 110 · 语言: Kotlin · 标签: —</span>
+  <p><strong>是什么：</strong>一款采用 tvOS 26 风格的 Android TV 启动器，内置液态玻璃 dock栏、控制中心和照片屏障，最重要的是支持 AI 智能体直接安装和管理。</p>
+  <p><strong>为什么值得关注：</strong>把 AI 智能体能力延伸到电视大屏端和智能家居发射器上，探索了全新的 Agent 端侧落地交互形态。</p>
+</div>
+
+<div class="closing"><strong>今日信号：</strong>大模型推理成本的极限压缩与多模态具身智能的加速爆发，正在把 AI 从虚浮的聊天玩具迅速逼向硬核的产业降本刚需。</div></div>
   <div class="footer">AI Daily Digest · Gemini + GitHub Actions · 每天早上自动发送</div>
 </div>
 </body></html>
