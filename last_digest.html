@@ -54,241 +54,279 @@ h2 { color: #0f0f1a; margin-top: 0; font-size: 21px; line-height: 1.5; }
 <body>
 <div class="wrapper">
   <div class="header"><h1>📡 AI Daily Digest</h1></div>
-  <div class="body"><h2>📡 AI Daily Digest · 2026年11月11日</h2>
-<p class="intro">新闻 85 条 · 新项目 8 个 · 聚焦 大语言模型与推理模型、AI Agent（智能体）与自动化、多模态与视频生成、开源模型生态（本地部署）、具身智能与机器人</p>
+  <div class="body"><h2>📡 AI Daily Digest · 2026年11月12日</h2>
+<p class="intro">新闻 46 条 · 新项目 8 个 · 聚焦 大语言模型与推理模型、AI Agent（智能体）与自动化、多模态与视频生成、开源模型生态（本地部署）、具身智能与机器人</p>
 
 <div class="section-title">📌 重点新闻</div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/anthropic-kicks-off-ipo-roadshow-offering-shares-at-70-to-78-and-targeting-a-trillion-dollar-valuation/">Anthropic 启动 IPO 路演，估值冲向 1.4 万亿美元</a></h3>
-  <span class="meta">来源：The Decoder / TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>Anthropic 正式开启公开招股，股票定价区间 70 至 78 美元，摊薄估值最高达 1.404 万亿美元。公司拟公开募资 644 亿美元，同时已通过私密配售从谷歌、英伟达、微软等巨头手里锁定 260 亿美元。7 位创始人每人将在 IPO 中套现 2.5 亿美元现金，但依然保持对公司的控制权。</p>
-  <p><strong>看点：</strong>这是大模型时代第一家真正冲刺万亿市值的独立模型厂商。一边是公开二级市场对 AI 烧钱模式的质疑加剧，另一边是巨头们掏出 260 亿真金白银绑定 Anthropic，这场上市将成为整个 AI 行业估值体系的试金石。</p>
-  <p><strong>怎么看：</strong>创始人一人套现 2.5 亿刀确实赚翻了，但也暴露了模型梯队分化的现实：拿不出顶尖 Agent 能力和企业级现金流的厂商，接下来连上桌招股的资格都没有。</p>
+  <h3><a href="https://techcrunch.com/2026/11/11/nvidias-stock-drops-as-board-reportedly-preps-to-oust-ceo-jensen-huang/">英伟达董事会紧急准备罢免 CEO 黄仁勋，股价应声大跌</a></h3>
+  <span class="meta">来源：TechCrunch · 2026-11-11</span>
+  <p><strong>事件：</strong>英伟达执掌公司 33 年的创始人黄仁勋因深陷与涉嫌中国情报人员及公司下属的高管桃色丑闻，引发美国国会闭门听证要求。英伟达董事会已召开紧急会议，最早可能在周三晚上投票罢免黄仁勋，公司股价随之大幅下挫。</p>
+  <p><strong>看点：</strong>这不再是单纯的高管八卦，而是直接烧到了中美 AI 基础设施竞争与国家安全的敏感神经。缺少了皮衣黄的英伟达，其算力帝国的战略走向和客户信任将迎来前所未有的震荡。</p>
+  <p><strong>怎么看：</strong>创始人机制固然能带来强力的战略执行力，但在地缘政治和治理合规的放大镜下，个人风险瞬间就会演变为整个半导体产业的系统性风险。</p>
+  <p class="tag">关联：美国国会传唤黄仁勋进行闭门听证；英伟达无清晰继任者计划。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/anthropics-fable-5-2-completes-41-percent-of-real-freelance-jobs-up-from-2-5-percent-a-year-ago/">Anthropic 发布 Fable 5.2：能独立干完 41% 的真实自由职业任务</a></h3>
-  <span class="meta">来源：The Decoder / MarkTechPost · 2026-11-10</span>
-  <p><strong>事件：</strong>Anthropic 推出的全新模型 Claude Fable 5.2，在衡量真实外包任务能力的 Remote Labor Index 上拿到了 41.3% 的完成率（达到专业级交付标准），而一年前的行业最高水平只有 2.5%。同场还推出了安全限制更严的姐妹型号 Mythos 5.2，在 FrontierCode 2.0 跑出 49.1% 的高分。</p>
-  <p><strong>看点：</strong>从 2.5% 到 41.3% 只用了 12 个月，说明模型在复杂写代码、数据分析和多步骤流程上的自动化能力已经跨过了“玩票”阶段。不过评估也指出，产品设计和动画创作依然是它的短板。</p>
-  <p><strong>怎么看：</strong>别再以为 Agent 只能帮忙写写邮件了。自由职业平台上近四成的初级外包订单，现在 AI 跑一趟几美分的 Token 就能搞定，白领外包市场的基本盘正在被快速侵蚀。</p>
+  <h3><a href="https://the-decoder.com/anthropic-says-ai-is-eroding-nvidias-cuda-lead-cutting-an-amd-chip-switch-from-months-to-three-days/">Anthropic 宣称用 AI 3 天打破 CUDA 护城河，Claude 成功移植 AMD</a></h3>
+  <span class="meta">来源：The Decoder · 2026-11-11</span>
+  <p><strong>事件：</strong>Anthropic 透露其内部模型 Mythos 在几乎没有人工干预的情况下，仅用 3 天时间就把 Claude 跑在了 AMD GPU 上，将过去需要数月的算力迁移成本压缩到了几天。</p>
+  <p><strong>看点：</strong>软件生态生态一直被视作英伟达最难攻破的护城河。一旦大模型具备了自动重构底层代码的能力，AMD 等替代芯片的部署门槛将断崖式下跌，云计算大厂摆脱单一供应商垄断速度加快。</p>
+  <p><strong>怎么看：</strong>别再以为 CUDA 是不可动摇的神话了，AI 正在亲手拆掉保护软件垄断的围墙。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/anthropic-turns-claude-into-a-full-workspace-with-Plugins,spreadsheets,whiteboards,and-soon-Meeting-notes/">Anthropic 推出 Claude Workspace：加装表格与白板，硬刚 Office</a></h3>
-  <span class="meta">来源：The Decoder / TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>Anthropic 宣布把 Claude 扩建为一体化工作台，加入 Claude Sheets（表格）、Whiteboards（白板）以及交互式插件体系，支持直接接入 Adobe 和 Atlassian 等第三方工具。此外还预告了 Claude Meetings，能自动加入实时会议听取讨论并抽离任务计划。</p>
-  <p><strong>看点：</strong>以前是把 AI 塞进 Office 或者 Workspace 里当作边角料插件；现在 Anthropic 颠覆了玩法，直接以 Claude 为主中心，把传统的表格、文档、白板都变成 AI 调用的组件。</p>
-  <p><strong>怎么看：</strong>这才是下一代 SaaS 的终极形态。只要用户习惯了直接跟 Claude 对话生成表格和架构图，微软和谷歌卖了多年的办公软件套餐就得面临重构。</p>
+  <h3><a href="https://the-decoder.com/enterprise-sales-push-openais-quarterly-revenue-to-10-billion-though-it-still-trails-anthropic/">OpenAI 单季营收突破 100 亿美元，但亏损也放大了 50%</a></h3>
+  <span class="meta">来源：The Decoder / TechCrunch · 2026-11-11</span>
+  <p><strong>事件：</strong>OpenAI 第三季度营收达到 100 亿美元，较二季度的 67 亿大涨近 50%。但调整后运营亏损飙升至 109 亿美元，在营利效率上依然落后于年营收 170 亿美元的 Anthropic。</p>
+  <p><strong>看点：</strong>B 端企业级销售正在带来天量流水，但基础设施和算力消耗的成本无底洞依然没填满。OpenAI 正在发起激烈的价格战，企图用规模效应强行拖垮竞争对手。</p>
+  <p><strong>怎么看：</strong>营收破百亿确实好看，但在烧钱速度超过进账速度的背景下，大模型厂商必须尽快证明自己不是在给芯片厂和电网白打工。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://deepmind.google/blog/gemini-4-carbon-is-now-available/">谷歌 Gemini 4 Carbon 正式发售：多 Agent 蜂群协同上线</a></h3>
-  <span class="meta">来源：Google DeepMind / The Decoder · 2026-11-10</span>
-  <p><strong>事件：</strong>谷歌经过两周内测后，正式向公众放开了 Gemini 4 Carbon。它的单任务推理成本只有竞争对手 Fable 5.2 的一半以下，且在多项基准测试中登顶。谷歌还顺带预告了 `/swarm` 功能，允许多个 Agent 团队在后台实时拆分并并行处理复杂任务。</p>
-  <p><strong>看点：</strong>模型迭代周期已经被拉到了以“周”为单位。谷歌靠着自研 TPU 硬件成本优势，打起了极具破坏力的价格战，把高端 Agent 模型的调用价格生生打掉了一半。</p>
-  <p><strong>怎么看：</strong>单打独斗的单体 Agent 时代结束了，未来是多 Agent 蜂群（Swarm）协作的天下。对于开发者来说，调用成本大幅下降是绝对的利好。</p>
+  <h3><a href="https://the-decoder.com/google-joins-the-decision-model-wave-with-gemini-decision-1-scoring-1000-questions-in-a-single-pass/">Google 推出 Gemini Decision 1：单次推理直接给 1000 个问题打分</a></h3>
+  <span class="meta">来源：The Decoder / MarkTechPost · 2026-11-11</span>
+  <p><strong>事件：</strong>Google DeepMind 发布 Gemini Decisions API，底层由 Gemini Decision 1 驱动。它支持在一次请求中对跨文本、图像、音视频和 PDF 的多达 1000 个封闭式或评估类问题进行校准打分，响应延迟低至 150-250 毫秒，价格仅为每百万 Token 0.10 美元。</p>
+  <p><strong>看点：</strong>传统 LLM 算分类和打分任务又贵又慢，这个专用决策模型直接把推理成本降到了 3.5 Flash-Lite 的五分之一。对于内容审核、大规模数据标注和自动化质量风控团队来说简直是降维打击。</p>
+  <p><strong>怎么看：</strong>大模型分化趋势非常明显，通用对话继续卷思考过程，而垂直专用 API 专门干高频低成本的脏活累活。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/google-deepminds-gemini-robotics-2-5-scores-96-percent-sorting-metal-parts-in-a-mercedes-benz-assembly-pilot/">谷歌 DeepMind 机器人进驻奔驰车间：分拣金属件成功率 96%</a></h3>
-  <span class="meta">来源：The Decoder / Ars Technica · 2026-11-10</span>
-  <p><strong>事件：</strong>谷歌 DeepMind 发布具身控制模型 Gemini Robotics 2.5，并联合 Apptronik 在奔驰位于德国和匈牙利的真实生产线上完成了试点测试。搭载该模型的 Apollo 2 人形机器人在分拣工业金属零部件时，抓取与分类成功率高达 96%。</p>
-  <p><strong>看点：</strong>具身智能不再只是实验室里的示范演示，而是进入了汽车制造这种高精度的严苛工业场景。96% 的成功率意味着它具备了在部分岗位上岗实操的基础能力。</p>
-  <p><strong>怎么看：</strong>通用具身大模型正在突破工业机器人的专用限制。谁能先在车间里把剩下 4% 的异常处理掉，谁就能接下工业自动化的万亿级大单。</p>
+  <h3><a href="https://the-decoder.com/grok-built-apps-exposed-patient-data-plaintext-passwords-and-spacexsis-own-sales-pipeline/">Grok 默认权限缺陷引发大祸：3.5 万个应用暴露敏感数据与 SpaceXSI 内部流水</a></h3>
+  <span class="meta">来源：The Decoder / Engadget · 2026-11-11</span>
+  <p><strong>事件：</strong>安全机构 Claroc 发现超过 35,000 个通过 Grok 极速构建（vibe-coding）出来的应用未设任何登录验证，直接向公网暴露患者数据、明文密码以及 SpaceXSI 内部的销售管线。原因是平台默认勾选了“知道链接即可访问”。</p>
+  <p><strong>看点：</strong>全自动无代码/低代码生成确实降低了开发门槛，但也把最基础的安全性扔在了脑后。小白用户根本不懂配置 ACL 权限，大模型生成代码时也没带安全默认值。</p>
+  <p><strong>怎么看：</strong>Vibe coding（凭感觉写代码）爽一时，数据泄露追责哭死人。 Agent 帮人建应用如果缺乏安全兜底，就是大面积的漏洞制造机。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/nvidias-model-gr00t-2-watches-humans-on-video-then-imagines-itself-as-the-robot/">英伟达发布 GR00T 2：看人类视频就能自学机器人控制</a></h3>
-  <span class="meta">来源：The Decoder · 2026-11-10</span>
-  <p><strong>事件：</strong>英伟达推出了具身智能模型 GR00T 2。该模型在约 40 万小时的人类操作视频数据集上完成训练，能直接将视频里人类的手部动作映射翻译到机械臂上，不再需要人工通过遥操作手把手教机器人。不过目前不同任务的成功率差异极大，在 10% 到 80% 之间波动。</p>
-  <p><strong>看点：</strong>解决了机器人领域最大的瓶颈——数据获取成本高。用互联网上现存的海量视频来“投喂”具身大模型，开辟了一条获取控制数据的高速公路。</p>
-  <p><strong>怎么看：</strong>理念非常超前，但波动巨大的成功率表明视频模态到物理动力学的空间映射还有很长的路要走，现阶段离真正商业大面积落地还差点火候。</p>
+  <h3><a href="https://the-decoder.com/us-data-brokers-are-selling-half-a-billion-dollars-in-rl-training-environments-to-chinese-ai-labs/">美数据掮客向中国 AI 实验室出售 5 亿美元强化学习训练环境</a></h3>
+  <span class="meta">来源：The Decoder · 2026-11-11</span>
+  <p><strong>事件：</strong>据 ChinaTalk 调查，Mercor、Surge AI 和 AfterQuery 等美国数据服务商正在向中国 AI 团队出售价值约 5 亿美元的高质量强化学习（RL）训练环境，其中包括此前专门为 OpenAI 和 Anthropic 定制的同款数据。</p>
+  <p><strong>看点：</strong>高端芯片封锁了，但高质量 RL 数据却在绕过出口管制通畅流向海外。数据服务商为了利润，直接把前沿实验室验证过的推理强化环境拿出来二次变现。</p>
+  <p><strong>怎么看：</strong>模型能力提升的死穴正在从纯算力转向数据质量与 RL 校验环境，硬件关上了门，软件数据的窗户根本关不住。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://the-decoder.com/openai-turns-chatgpt-into-a-business-directory-with-ai-agents-that-handle-customer-questions/">OpenAI 将 ChatGPT 变成企业黄页，内置商家 Agent 直接接单</a></h3>
-  <span class="meta">来源：The Decoder / TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>OpenAI 推出全新 Business Hub 平台，允许企业认领主页、上传商品数据并部署官方“Business Agents”。在美国体验区，电商商家可以直接在 ChatGPT 窗口里与潜在买家对话、解答疑问并引导交易。</p>
-  <p><strong>看点：</strong>OpenAI 在向传统的 Google Search 和 Yelp 宣战。ChatGPT 正在从一个单纯的聊天框，升级为具备商业转化能力和客服能力的流量分发入口。</p>
-  <p><strong>怎么看：</strong>对于做电商和本地服务的企业来说，新的 SEO 阵地已经转移到了 ChatGPT 里面。未来谁的商品数据更容易被商业 Agent 检索到，谁就能拿到消费流量。</p>
+  <h3><a href="https://www.engadget.com/2314121/united-is-restricting-ai-agents-from-booking-flights/">美联航全面封杀 AI Agent 订票，称存在安全与合规风险</a></h3>
+  <span class="meta">来源：Engadget · 2026-11-11</span>
+  <p><strong>事件：</strong>美国联合航空（United Airlines）开始限制自动化 AI Agent 直接访问系统代客订票。美联航表示，自主 Agent 频繁刷票和代下单的行为构成了系统安全隐患，并且可能违反美国交通部（DOT）和 FAA 的合规规定。</p>
+  <p><strong>看点：</strong>这是消费级 AI Agent 落地遇到的第一波真实反弹。企业接口并没有做好接收千万级自治 Agent 并发请求的准备，防爬虫机制与 Agent 自动化的冲突彻底爆发。</p>
+  <p><strong>怎么看：</strong> Agent 替人干活听起来很美，但受限于身份认证和传统 API 承载力，各行各业的“防 Agent 墙”才刚刚开始砌起来。</p>
+
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/">OpenAI 买下旅游初创公司 Odessia，瞄准出行场景 Agent</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>OpenAI 完成对 Odessia 的收购，该公司由知名短租平台 Sonder 的创始人 Francis Davidson 创立。OpenAI 尚未公布具体整合细节，但业内预计此举意在强化智能体在旅游预订和行程规划上的垂直落能力。</p>
-  <p><strong>看点：</strong>旅游出行是垂直 Agent 最容易实现商业变现的场景之一。买下拥有丰富行业资源和供应链认知团队的初创公司，能让 OpenAI 快速打通机酒预订的闭环。</p>
-  <p><strong>怎么看：</strong>通用大模型厂商正在大肆收割垂直领域的创业公司。传统的在线旅游中介平台（OTA）如果不能把体验做好，很可能会被 OpenAI 这种直接干预预订链路的 Agent 跨界偷袭。</p>
+  <h3><a href="https://arstechnica.com/ai/2026/11/taiwans-chipmaking-giant-tsmc-to-invest-1b-in-anthropic-openai/">台积电逆向注资：向 Anthropic 和 OpenAI 投资 10 亿美元</a></h3>
+  <span class="meta">来源：Ars Technica · 2026-11-11</span>
+  <p><strong>事件：</strong>芯片代工巨头台积电（TSMC）宣布向大模型双雄 Anthropic 和 OpenAI 投资 10 亿美元。这是 AI 繁荣期极具代表性的循环融资案例。</p>
+  <p><strong>看点：</strong>卖铲人直接入股买铲人。台积电需要确信软件端的算力需求能够持续消化其最先进制程的扩产产能，通过资本纽带将顶级模型厂绑定在自己的产能蛋糕上。</p>
+  <p><strong>怎么看：</strong>软硬件巨头在闭环资本游戏里越绑越紧，这既是防范产能过剩的对冲，也是在下注下一代晶圆级 AI 芯片的研发。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.marktechpost.com/2026/11/09/meta-muse-ember-small-agent-model/">Meta 发布 Agent 微型模型 Muse Ember，同步登陆 Apple Watch</a></h3>
-  <span class="meta">来源：MarkTechPost / TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>Meta 推出了旗下体积最小的模型 Muse Ember，主打高吞吐量的工具调用、代码子任务拆解和文档解析，支持 100 万 Token 上下文，综合性能追平 Claude Haiku 5.5 但任务单价仅为后者的三分之一。同时 Meta 的 AI 助手 Muse 正式适配 Apple Watch 及 Wear OS 设备。</p>
-  <p><strong>看点：</strong>Agent 的日常运行需要海量的微小调用。Meta 走的是“极致性价比+硬件终端渗透”路线，让轻量 Agent 跑在手表这种可穿戴设备上，随时处理语音指令。</p>
-  <p><strong>怎么看：</strong>可穿戴设备才是语音 Agent 最理想的物理载体。把模型的单次调用成本压到毫厘级别，是 Agent 规模化普及的前置条件。</p>
+  <h3><a href="https://the-decoder.com/google-deepminds-alphaproof-code-verified-signals-cryptographic-core-in-four-weeks-instead-of-years/">DeepMind 仅用 4 周完成 Signal 核心加密代码数学验证</a></h3>
+  <span class="meta">来源：The Decoder / Ars Technica · 2026-11-11</span>
+  <p><strong>事件：</strong>Google DeepMind 的 AlphaProof Code 系统仅用四周时间就完成了对通信软件 Signal 核心加密代码的数学形式化验证。由 Gemini Carbon 驱动的 AI 系统撰写了超过 600 万行证明代码，只有 1% 需要人工复核。</p>
+  <p><strong>看点：</strong>以往需要顶级密码学家花费数年手工推导的形式化验证，被 AI 压到了一月之内。DeepMind 计划把这项技术拓展到电网、医疗设备等国家关键基础设施。</p>
+  <p><strong>怎么看：</strong>AI 写代码可能漏洞百出，但用 AI 证明代码数学严谨性却是绝对的正途。高危安全软件的开发范式被永远改变了。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.marktechpost.com/2026/11/10/fish-audio-live-3-full-duplex-voice-model/">Fish Audio 发布 Live 3：延迟低至 186 毫秒的双工语音模型</a></h3>
+  <h3><a href="https://techcrunch.com/2026/11/11/meta-is-losing-its-longtime-head-of-infrastructure/">电网与土地卡死数据中心，Meta 基础设施元老离职</a></h3>
+  <span class="meta">来源：TechCrunch · 2026-11-11</span>
+  <p><strong>事件：</strong>自 2009 年起执掌 Meta 基础设施的老将 Santosh Janardhan 离职。与此同时，多项报道显示全球范围内宣布的成百上千亿 AI 数据中心正面临严重落地危机，许可审批延迟、当地居民抗议以及电力缺口导致大量项目根本无法动工。</p>
+  <p><strong>看点：</strong>算力狂欢正在撞上物理世界的硬墙。没有足够的核电、变电站和土地规划，账面上的 GPU 采购订单最终只会沦为纸面产能。</p>
+  <p><strong>怎么看：</strong>未来三年 AI 的竞争瓶颈不再是模型算法，而是电力工程与政企协调能力。</p>
+</div>
+
+<div class="item">
+  <h3><a href="https://techcrunch.com/2026/11/11/coreweave-turns-to-customer-prepayments-shorter-contracts-to-fund-ai-growth/">CoreWeave 算力模式变脸：要客户先付全款并缩短合同期</a></h3>
+  <span class="meta">来源：TechCrunch · 2026-11-11</span>
+  <p><strong>事件：</strong>云算力供应商 CoreWeave 在三季度财报中透露，正在要求客户预付大笔算力款项，并主动缩短租用合同期限，以获取更高的单价和即时现金流来维持算力扩张。</p>
+  <p><strong>看点：</strong>算力租赁行业现金流压力巨大。面对飞速迭代的 GPU 硬件（旧显卡迅速贬值），CoreWeave 试图把资本风险转移给大模型初创公司。</p>
+  <p><strong>怎么看：</strong>算力炒作阶段结束了，进入了极其残酷的现金流兑现期，中小初创公司的算力采购成本正在进一步抬高。</p>
+</div>
+
+<div class="item">
+  <h3><a href="https://the-decoder.com/with-its-new-voice-model-deepl-voice-now-translates-intonation-and-speaking-speed-into-other-languages-as-well/">DeepL Voice 推出 Aure 模型：翻译开始听得懂“阴阳怪气”</a></h3>
+  <span class="meta">来源：The Decoder · 2026-11-11</span>
+  <p><strong>事件：</strong>DeepL 发布新一代语音模型 Aure，在实时同传中支持保留说话人的语调、情绪、重音以及说话节奏。即便原文带有讽刺或情绪起伏，翻译输出的语音也能精准复刻。</p>
+  <p><strong>看点：</strong>传统的语音翻译只做“文字对译+机械TTS”，极其生硬。Aure 实现了端到端的声学与情感特征跨语言迁移，跨国实时会议的体验将获得质的提升。</p>
+  <p><strong>怎么看：</strong>多模态音频模型的战场已经从简单的“听懂写出”演进到“同频共振”的社交情感理解层。</p>
+</div>
+
+<div class="item">
+  <h3><a href="https://www.marktechpost.com/2026/11/10/ifm-pan-2-open-world-model/">MBZUAI 开源 290 亿参数物理世界模型 PAN 2</a></h3>
   <span class="meta">来源：MarkTechPost · 2026-11-11</span>
-  <p><strong>事件：</strong>Fish Audio 推出专为语音 Agent 设计的全双工模型 Live 3。它支持边说边听，不仅能准确识别用户的语气助词（如“嗯嗯”）与真正打断指令的区别，响应延迟最快仅需 186 毫秒。首发版本支持英文。</p>
-  <p><strong>看点：</strong>传统的语音交互有明显的“一问一答”停顿感，而 Live 3 这种全双工模型把反应时间缩短到了人类自然对话的水平（200 毫秒以内），让打断与插话变得极其自然。</p>
-  <p><strong>怎么看：</strong>高实时性语音是客服、同传以及虚拟陪伴应用的核心技术水岭。随着延迟被压到 200 毫秒以内，基于传统拼接式 TTS 的语音方案将被全面淘汰。</p>
+  <p><strong>事件：</strong>默罕默德·本·扎耶德人工智能大学（MBZUAI）开源了采用 Apache 2.0 协议的 PAN 2 物理世界模型。该模型将 LLM 规划器与 290 亿参数的扩散 Transformer 相结合，能预测并生成长达 20 秒的物理交互结果视频。</p>
+  <p><strong>看点：</strong>具身智能和机器人训练最缺的就是对真实物理规律的预判能力。PAN 2 作为开源工具，直接为机器人模拟器和物理 AI 研发团队提供了一个免费的“世界引擎”。</p>
+  <p><strong>怎么看：</strong>开源生态在物理世界模型上的发力，正在拉低具身智能在模拟训练阶段的技术门槛。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.marktechpost.com/2026/11/10/zyphra-zonos3-mini-open-source-tts/">Zyphra 开源 ZONOS3-Mini：仅 1 亿激活参数的浏览器端语音合成</a></h3>
-  <span class="meta">来源：MarkTechPost · 2026-11-10</span>
-  <p><strong>事件：</strong>Zyphra 采用 Apache 2.0 协议开源了 TTS 模型 ZONOS3-Mini。该模型总参数量为 8 亿，实际激活参数仅 1 亿，支持声音克隆与逐字语调控制，最关键的是可以直接在浏览器前端实时运行。</p>
-  <p><strong>看点：</strong>激活参数压到 1 亿后，普通的笔记本甚至手机浏览器就能通过 WebGPU 直接渲染出高品质语音，完全不需要消耗后端的服务器 GPU 算力。</p>
-  <p><strong>怎么看：</strong>开源生态在轻量化边缘部署上的速度极快。这种端侧实时语音克隆模型给本地离线应用开辟了极大的想像空间，隐私敏感型应用有了新选择。</p>
+  <h3><a href="https://techcrunch.com/2026/11/11/databricks-new-ai-agent-tells-ceo-ali-ghodsi-the-unvarnished-truth/">Databricks CEO 靠自研 Genie Agent 听真话：下属不敢说的它全说了</a></h3>
+  <span class="meta">来源：TechCrunch · 2026-11-11</span>
+  <p><strong>事件：</strong>Databricks 员工数破万后，CEO Ali Ghodsi 坦言自己很难听到一线真实问题。公司研发了升级版 Genie Agent，自动调取和分析全公司内部数据与项目阻碍，直接向 CEO 报告组织运行中的痛点与失败案例。</p>
+  <p><strong>看点：</strong>这是企业内部数据 Agent 极其地道的玩法——打破层级汇报的“汇报彩虹”，用纯粹的数据事实替代中层管理者的过滤。</p>
+  <p><strong>怎么看：</strong>AI 不仅在替代基层重复劳动，还在变成最高决策者的“刺客级”管理助手。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.wired.com/story/kora-new-linux-based-desktop-operating-system-is-built-for-ai-nerds/">Cyanogen 联合创始人推出 Kora 系统：为本地 AI 打造的桌面操作系统</a></h3>
-  <span class="meta">来源：Wired / TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>曾试图用 CyanogenMod 挑战谷歌 Android 的联合创始人，发布了全新的 Linux 桌面操作系统 Kora。该系统免费开源，专门针对深度依赖本地大模型和 Agent 的进阶用户设计，旨在在大模型时代替代 Windows 和 macOS。</p>
-  <p><strong>看点：</strong>传统操作系统在管理显存分配、本地模型加载和 Agent 跨窗口自动化操作时显得十分臃肿。Kora 在系统底层重构了算力调度与 Agent 接口，试图抢占本地 AI 极客的桌面端。</p>
-  <p><strong>怎么看：</strong>虽然挑战 Windows 听起来像天方夜谭，但现有操作系统确实没有为 AI 硬件准备好底层架构。这类探索会倒逼微软和苹果加速更新系统调度机制。</p>
+  <h3><a href="https://the-decoder.com/uk-regulator-threatens-universities-with-sanctions-unless-they-adopt-ai-proof-exam-formats/">英国监管机构喊话高校：ChatGPT 测验作弊严重，必须回归传统纸笔考试</a></h3>
+  <span class="meta">来源：The Decoder · 2026-11-11</span>
+  <p><strong>事件：</strong>英格兰高等教育监管机构发出警告，由于学生普遍使用 ChatGPT 撰写论文且无法在事后回答基础问题，课程作业的真实性已彻底崩塌。监管机构要求大学恢复传统闭卷纸笔考试，否则将面临行政处罚。</p>
+  <p><strong>看点：</strong>“AI 检测软件”已被证明全面失效，评估教育成果的防线倒退回最原始的物理隔离形态。</p>
+  <p><strong>怎么看：</strong>在教育考核模式完成重构前，全行业不得不经历一段“回归原始纸笔”的技术阵痛期。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://arstechnica.com/ai/2026/11/ring-cameras-go-mobile-as-amazon-debuts-ai-powered-security-drone-and-robot/">亚马逊 Ring 推出 AI 巡逻无人机与履带安全机器人</a></h3>
-  <span class="meta">来源：Ars Technica / TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>亚马逊旗下的 Ring 宣布从固定的门铃摄像头跨入移动安防机器人领域，推出了室内安防巡逻无人机以及面向企业安防的履带巡逻机器人。产品内置 AI 视觉识别，计划于 2026 年底至 2027 年初上市。</p>
-  <p><strong>看点：</strong>安防监控设备从“墙上的固定死角”进化到了“具备空间感知能力的移动节点”。结合视觉 Agent 后，安防系统不仅能看，还能主动巡查异常场景。</p>
-  <p><strong>怎么看：</strong>智能家居硬件形态正在加速机器人化。对于家庭和企业防护来说，主动移动巡检相比传统多摄像头联防，在成本和覆盖死角上优势明显。</p>
+  <h3><a href="https://www.engadget.com/2314064/bytedance-is-reportedly-working-on-its-own-ai-agent/">字节跳动秘密开发自主 AI Agent，全面对标 Meta Muse</a></h3>
+  <span class="meta">来源：Engadget · 2026-11-11</span>
+  <p><strong>事件：</strong>据知情人士透露，字节跳动正在秘密组建团队开发一款高度自治的 Agent 系统，试图在多模态理解和自动化交互上直接对标 Meta 最新推出的 Muse。</p>
+  <p><strong>看点：</strong>字节凭借 TikTok 和抖音拥有一流的短视频多模态生态，将 Agent 嵌入其巨大的内容推荐与电商链条，商业化想象力极大。</p>
+  <p><strong>怎么看：</strong>C 端自动化 Agent 的战火正在从硅谷烧向应用场景最丰富的高频应用大厂。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://deepmind.google/blog/introducing-alphaproof-code/">DeepMind AlphaProof Code 写入 300 万行代码验证 Signal 加密</a></h3>
-  <span class="meta">来源：Google DeepMind · 2026-11-10</span>
-  <p><strong>事件：</strong>谷歌 DeepMind 推出了 AlphaProof Code 智能体系统，该系统使用 Lean 形式化验证语言编写了 300 万行证明代码，成功对知名加密通讯软件 Signal 的核心加密逻辑完成了深度形式化验证。</p>
-  <p><strong>看点：</strong>以前高精度的形式化代码验证由于耗时极长、人力成本极高，只能用在航天或核电等极端领域。AlphaProof Code 证明了 AI 可以大规模接管极高难度的软件安全性证明。”</p>
-  <p><strong>怎么看：</strong>这是软件工程领域的划时代进展。未来关键基础基础设施（如金融、底层加密软件）的安全审计，将全面由具备形式化推理能力的 AI 系统接管。</p>
+  <h3><a href="https://the-decoder.com/helsing-built-an-ai-system-that-prepares-targets-for-weapons-systems-and-says-every-decision-will-carry-a-human-name/">欧洲军工巨头 Helsing 发布 Clarity AI：自动为武器系统准备打击目标</a></h3>
+  <span class="meta">来源：The Decoder · 2026-11-11</span>
+  <p><strong>事件：</strong>欧洲国防科技公司 Helsing 推出 Clarity AI 平台。该系统通过 Agent 融合传感器数据，为武器系统生成目标推荐。虽然公司强调“每次决策都由人类签字负责”，但自动化速度极大挤压了人类复核时间。</p>
+  <p><strong>看点：</strong>AI 智能体向军事领域的应用渗透正在不可逆地加快，算法推荐的目标准备时间从小时级缩短到秒级。</p>
+  <p><strong>怎么看：</strong>所谓的“人类在回路中（Human-in-the-loop）”在极速的自动化决策链条里，很可能会沦为形式上的橡皮图章。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/">马斯克旗下 Grok Build 发生安全事故：泄露 3.5 万个应用机密数据</a></h3>
-  <span class="meta">来源：Ars Technica · 2026-11-10</span>
-  <p><strong>事件：</strong>安全研究人员发现，马斯克旗下的 Grok Build 代码生成 Agent 平台存在严重配置纰漏，导致约 35,000 个构建的应用数据在公网上“赤裸裸”暴晒，其中包括部分属于 SpaceXSI 的内部机密代码和凭证。</p>
-  <p><strong>看点：</strong>Agent 在帮用户自动部署应用、配置数据库和申请密钥时，一旦缺乏权限隔离，就会把敏感凭证硬编码或者公开放置，带来灾难性的安全漏洞。</p>
-  <p><strong>怎么看：</strong>Agent 跑得太快，安全防御完全没跟上。企业在使用这类自动化代码 Agent 时，必须部署严格的外部影子审计，决不能盲目信任 Agent 生成的配置方案。</p>
+  <h3><a href="https://arstechnica.com/gaming/2026/11/big-walk-used-ai-to-fix-a-bug-now-the-indie-gaming-world-is-having-a-reckoning/">独立游戏用 AI 修复了 Bug，结果遭行业大奖联合抵制</a></h3>
+  <span class="meta">来源：Ars Technica · 2026-11-11</span>
+  <p><strong>事件：</strong>独立游戏《Big Walk》团队承认在开发过程中使用了 AI 工具辅助修复 Bug，引发独立游戏奖项（IGF）评委大面积讨伐，多名评委表示“只要沾了一点 AI 代码就不配参赛”。</p>
+  <p><strong>看点：</strong>文化创意圈对生成式 AI 的抵制倾向已经延伸到了纯工程类的 Bug 修复上，道德审判边界开始模糊。</p>
+  <p><strong>怎么看：</strong>开发者需要学会保护自己，在版权与社群情绪未明朗前，研发工具链必须保持极高的透明度。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://www.marktechpost.com/2026/11/10/meta-fair-e-means-k-means-faiss/">Meta FAIR 发布 e-means 算法：向量检索加速 10 至 45 倍</a></h3>
-  <span class="meta">来源：MarkTechPost · 2026-11-10</span>
-  <p><strong>事件：</strong>Meta FAIR 在最新的 FAISS 1.16.0 向量检索库中上线了新算法 e-means，用来替代传统的 mini-batch k-means。它只需 1.4 到 2.6 个 Epoch 就能达到传统算法 25 个 Epoch 的损失水平，GPU 运行速度提升了 10 至 45 倍，且无需繁琐调参。</p>
-  <p><strong>看点：</strong>FAISS 是全球绝大多数 RAG（检索增强生成）和向量数据库的核心底层。底层聚类算法取得数十倍的性能提升，意味着大模型检索外部知识库的整体延迟和计算成本将大幅下降。</p>
-  <p><strong>怎么看：</strong>这种基础设施层面的隐形升级，给工业界带来的实惠远超很多大模型宣传噱头，搞向量检索和 RAG 架构的团队一定要第一时间更新库版本。</p>
+  <h3><a href="https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-race-for-ai-chips/">英国芯片初创 Fractile 融资 7.2 亿美元，专攻特制 AI 芯片</a></h3>
+  <span class="meta">来源：TechCrunch · 2026-11-11</span>
+  <p><strong>事件：</strong>英国 AI 硬件初创公司 Fractile 完成 7.2 亿美元融资，成为欧洲融资额最高的专用 AI 芯片厂商之一，目标是颠覆传统 Transformer 的内存瓶颈。</p>
+  <p><strong>看点：</strong>资本市场并没有停止投硬件，但热钱正从通用 GPU 转向专门针对大模型推理加速的专有架构（In-Memory Computing / ASIC）。</p>
+  <p><strong>怎么看：</strong>这再次印证了推理阶段成本优化是全行业最急迫的刚需。</p>
 </div>
 
 <div class="item">
-  <h3><a href="https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law takes-effect/">纽约州 AI 安全法生效：OpenAI 与 Anthropic 面临强制监管</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>美国纽约州全面实施其 AI 安全法案。OpenAI、Anthropic 等头部大模型开发商必须在该州进行官方注册、公开其安全测试流程，并被强制要求在发生重大安全事故时立即上报，违者将面临高额罚款。</p>
-  <p><strong>看点：</strong>继加州法案争议之后，纽约州成为了美国又一个对大模型头部厂商实施硬性行政监管的重镇。模型的安全合规治理正在从自律走向法律强制约束。</p>
-  <p><strong>怎么看：</strong>合规成本正在迅速上升。对于小创新公司来说，越来越复杂的监管条款会抬高竞争门槛，反而容易加剧头部大厂对行业的垄断。</p>
+  <h3><a href="https://www.engadget.com/2314093/google-brings-the-gemini-app-to-apple-carplay/">Google 将 Gemini 独立应用正式搬上 Apple CarPlay 汽车桌面</a></h3>
+  <span class="meta">来源：Engadget · 2026-11-11</span>
+  <p><strong>事件：</strong>Google 宣布 Gemini 独立 App 正式登录 Apple CarPlay。此前用户只能在 Google Maps 内间接调用，现在则可以直接在车载大屏上使用完整 AI 交互。</p>
+  <p><strong>看点：</strong>车内场景是 AI 语音交互最硬核的阵地。Google 直接冲进苹果的车机生态，拉开了车内助手替换传统 Siri 的序幕。</p>
+  <p><strong>怎么看：</strong>车载语音助手终于要摆脱“听不懂人话”的傻瓜时代了。</p>
 </div>
 
-<div class="item">
-  <h3><a href="https://the-decoder.com/eight-countries-and-top-ai-labs-agree-to-shutdown-mechanisms-in-new-paris-declaration/">多国与顶级实验室签署《巴黎 Call》：同意引入强制关停机制</a></h3>
-  <span class="meta">来源：The Decoder · 2026-11-10</span>
-  <p><strong>事件：</strong>在法国总统马克龙倡议下，8 个国家以及来自 OpenAI、Anthropic、微软和 Mistral AI 的代表共同签署了《巴黎 AI 安全与保障呼吁》。签署企业承诺建立模型紧急关停机制（Shutdown mechanisms）、接受独立审计并披露已知风险。</p>
-  <p><strong>看点：</strong>全球范围内对极具潜在危险的高等级模型形成了“熔断器”共识。当模型出现不可控的失控或越权行为时，厂商必须留有物理级或系统级的“一键关停”通道。</p>
-  <p><strong>怎么看：</strong>框架声明写得很漂亮，但遗憾的是该协议缺乏硬性的惩罚措施和明确的实施截止期限。实际执行起来有多大约束力，仍需观察。</p>
-</div>
-
-<div class="item">
-  <h3><a href="https://www.infoq.com/news/2026/11/google-agent-distraction/">谷歌研究揭示 AI 盲区：代码库里的技术债会导致 Agent“走神”</a></h3>
-  <span class="meta">来源：InfoQ · 2026-11-10</span>
-  <p><strong>事件：</strong>谷歌高级软件工程师 Sam Saccone 等人发表研究，指出了代码 Agent 运行中的“Agent 走神（Agent Distraction）”现象：当代码库中充斥着过时的 TODO 注释、失效的 Bug 引用和陈旧的文档规范时，Agent 会被这些技术债误导，偏离主线任务去干无关的副业。</p>
-  <p><strong>看点：</strong>人类程序员能自动忽略那些陈年废弃注释，但 Agent 在读取上下文时会把所有文本一视同仁。技术债不仅拖慢人类，还会呈放大效应地折磨 Agent。</p>
-  <p><strong>怎么看：</strong>要想让 AI Agent 顺畅地干活，企业得先花精力清理代码库里的“垃圾”。不清理技术债就强行引入编程 Agent，只会让 Token 费用白白打水漂。</p>
-</div>
-
-<div class="item">
-  <h3><a href="https://www.infoq.com/presentations/scaling-multi-agent-llm-batch/">沃尔玛 4700 家门店部署多 Agent 批处理：月度算力费降低 90%</a></h3>
-  <span class="meta">来源：InfoQ · 2026-11-10</span>
-  <p><strong>事件：</strong>沃尔玛全球科技团队分享实战案例：他们在 4700 家门店的夜间库存预测中部署了多 Agent LLM 工作流。通过使用 MCP 协议约束与 Loop Agent，并将算力架构从预留算力（PTU）切到了按需付费模式，成功将每月推理成本从 10 万多美元暴降至 1 万美元。</p>
-  <p><strong>看点：</strong>展示了大企业如何在大规模工程落地中把大模型用得“又便宜又稳定”。通过结构化协议约束 Agent 的输出，大幅减少了因为输出格式错误导致的重试开销。</p>
-  <p><strong>怎么看：</strong>别再无脑买断算力集群了！在非实时交互的后端业务里，采用离线批处理 + 按需调用的 Agent 架构，能帮企业省下真金白银。</p>
-</div>
-
-<div class="item">
-  <h3><a href="https://techcrunch.com/2026/11/10/adobe-adds-more-ai-to-its-products-and-launches-an-mcp/">Adobe 将 AI Agent 引入 Photoshop 与 Premiere，发布原型构建工具</a></h3>
-  <span class="meta">来源：TechCrunch · 2026-11-10</span>
-  <p><strong>事件：</strong>Adobe 在 Photoshop、Premiere 和 Firefly 中全面嵌入了自主 AI Agent，支持创作者通过自然语言驱动复杂的多步骤编辑。同时，Firefly 内还新增了一款原型构建工具，直接对标 Figma 的设计交互能力。</p>
-  <p><strong>看点：</strong>Adobe 不再只提供单一的生成指令按钮，而是把 Agent 变成了能理解设计意图的“助理”。同时通过推出原型工具，向 Figma 的核心领地发起了反击。</p>
-  <p><strong>怎么看：</strong>生产力工具的竞争已经演变成“谁的 Agent 更懂专业工作流”。只会生成花哨图片的工具空间越来越窄，能无缝接轨专业制作管线的 Agent 才能存活。</p>
 </div>
 
 <div class="section-title">📈 趋势分析</div>
 
 <div class="trend">
-  <h3>1. 具身智能突破物理屏障：从试验场杀入工业生产一线</h3>
-  <p>从谷歌 Gemini Robotics 2.5 在奔驰总装线做到 96% 的零部件分拣成功率，到英伟达 GR00T 2 直接通过人类视频吸收动作泛化能力，具身智能正在快速摆脱过去只能在特定演示台抓取方块的“玩具阶段”。大模型的泛化能力结合机器人视觉，让复杂环境下的机械控制有了实用价值。预计未来一年内，汽车、电子制造等标准化程度较高的流水线上，替换特定重复岗位的通用具身机器人将开启小批量工业预派驻。</p>
+  <h3>1. 软件护城河消融：AI 开始自我重构底层代码</h3>
+  <p>Anthropic 靠自研模型 3 天把 Claude 从 CUDA 迁移到 AMD，DeepMind 4 周完成 Signal 核心代码形式化验证。这两件事释放了同一个信号：以往需要数百名顶级工程师耗时数月甚至数年的底层软件工程，正在被 AI 以数量级的效率碾压。这意味着硬件厂商靠软件生态锁死客户的垄断模式正在快速失灵，算力买家随时准备带着代码跨架构迁移。</p>
 </div>
 
 <div class="trend">
-  <h3>2. 企业级 Agent 架构去“纯 LLM 化”：高频确定性流程回归代码控制</h3>
-  <p>本期 arXiv 论文 ReTrace 以及沃尔玛 4700 家门店的多 Agent 实战表明，纯靠 LLM 在每一步做推理决策不仅成本高昂，而且不稳定。行业开始转向“大模型负责拆解 SOP 并生成规则，生成后交由确定性的代码逻辑去执行”的模式。这种“Planner-Free（无规划器）”的工作流能直接降本 20% 以上。纯 LLM 决策将退守到异常处理环节，确定性代码流水线将重新统治高频业务。”</p>
+  <h3>2. Agent 的落地硬伤：防线失控与系统性排异</h3>
+  <p>Grok vibe-coding 泄漏 3.5 万个应用敏感数据，美联航出于安全风险直接封杀 Agent 代订机票。自治智能体从 demo 走入生产环境时，安全默认值缺失和传统 API 负载过载的问题暴露无遗。接下来半年，Agent 行业的主题将不是“它能干什么”，而是“怎么防止它把系统搞崩或泄漏隐私”。</p>
 </div>
 
 <div class="trend">
-  <h3>3. 交互形态全面微型化：从百亿参数下沉至极低延迟边缘端</h3>
-  <p>Meta Muse Ember 把 100 万上下文模型的推理单价压到 Haiku 5.5 的三分之一，Fish Audio 把双工语音响应时间缩短到 186 毫秒，Zyphra 则把 TTS 模型激活参数缩小到 1 亿并搬进了浏览器。这一切都指向同一个信号：Agent 正在脱离云端计算依赖，向智能手表、浏览器甚至离线终端转移。响应时间压到 200 毫秒以内后，以语音为核心的“无感交互”将彻底取代传统 UI 界面。</p>
+  <h3>3. 基础设施狂热回归物理现实</h3>
+  <p>从数据中心建设遭遇供电与审批瓶颈，到 Meta 基础设施老将离职，再到 CoreWeave 要求客户预付全款。算力建设正在从“凭空想象的指数级增长”撞上“变电站建设周期需要 3 年”的客观物理规律。未来算力竞争的核心看点不是下多少 GPU 订单，而是谁能优先拿到电网接入许可。</p>
 </div>
 
 <div class="section-title">🔬 值得深挖</div>
 
 <div class="deep-read">
-  <h3><a href="https://arxiv.org/abs/2611.14492v1">ReTrace: Distilling Tool-Using Agents into Planner-Free Workflows</a></h3>
-  <p><strong>核心贡献：</strong>论文提出了 ReTrace 框架，能够把大模型 Agent 在执行标准 SOP 时的推理过程蒸馏提炼出来，转化为不需要 LLM 参与决策的静态代码工作流（Code-based Workflows）。在 79 个生产环境的标准作业流程中，ReTrace 编译出的代码工作流不仅达到了 93.8% 的完成率（对比纯 Agent 的 96.8%），更将单次任务成本直接砍掉了 24%。</p>
-  <p><strong>关注理由：</strong>治好了很多企业“Agent 运行成本太贵用不起”的病。它提供了一条将 Agent 探索出来的知识转化成固定代码的清晰路径，对于想要降低 Agent 线上部署成本的工程团队来说是极佳的参考范式。</p>
+  <h3><a href="https://the-decoder.com/google-deepminds-alphaproof-code-verified-signals-cryptographic-core-in-four-weeks-instead-of-years/">Google DeepMind：AlphaProof Code 形式化代码验证范式突破</a></h3>
+  <p><strong>核心贡献：</strong>证明了基于大语言模型的推导工具可以在极短时间内完成超大规模的推导代码撰写。通过生成超过 600 万行形式化证明代码，彻底改变了以往仅靠极少数顶级学者手工推导的困难局面。</p>
+  <p><strong>关注点：</strong>关注该技术如何逐步应用到高并发基础设施、工业控制系统和智能合约审计中。这是 AI 从“概率性给出模糊答案”向“数学绝对正确性”演进的关键里程碑。</p>
 </div>
 
 <div class="deep-read">
-  <h3><a href="https://arxiv.org/abs/2611.14432v1">One Policy for 100 Household Tasks: Our Solution for the 2026 BEHAVIOR Challenge</a></h3>
-  <p><strong>核心贡献：</strong>作者团队展示了如何在 OmniGibson 仿真器中，仅仅依靠单个 VLA（视觉-语言-动作）模型 Checkpoint，就同时学会并驾驭 100 种长时程（Long-horizon）复杂家庭家务任务。该方案基于 $\pi_{0.5}$ 架构，打破了以往一种家务对应一个独立控制模型的局限，在 100 项测试中取得了 0.392 的综合得分。</p>
-  <p><strong>关注理由：</strong>证实了具身智能领域“欠训练（Undertrained）”的假设——不需要复杂的架构大改，只要通过优化数据表达、延长训练时间并降低梯度噪声，单个通用策略模型就能同时处理极为多样的物理操作任务。</p>
-</div>
-
-<div class="deep-read">
-  <h3><a href="https://arxiv.org/abs/2611.14421v1">Earlybird: Predictive Streaming Speech Recognition in 29M Parameters</a></h3>
-  <p><strong>核心贡献：</strong>提出了仅有 29M 参数（4-bit 量化后仅 16.8 MB）的超轻量预测型流式语音识别模型 Earlybird。它打破了传统“等说话人讲完词再输出”的逻辑，能在用户话还没讲完时，提早 90 毫秒预测出正在说的词以及接下来的单词，全面超越现有流式模型。</p>
-  <p><strong>关注理由：</strong>极度适合端侧语音 Agent。把语音识别的延迟直接拉成了“负数”（提前预测），给下游的 LLM 思考争取到了极其宝贵的几十毫秒时间窗口，是构建无缝对话体验的重要技术拼图。</p>
+  <h3><a href="https://www.marktechpost.com/2026/11/10/ifm-pan-2-open-world-model/">MBZUAI：PAN 2 物理世界模型（29B 架构拆解）</a></h3>
+  <p><strong>核心贡献：</strong>将大语言模型的逻辑规划能力与 290 亿参数的 Diffusion Transformer 物理仿真完美打通，成功生成连续且符合直觉的 20 秒物理交互动作与后果预测。</p>
+  <p><strong>关注点：</strong>具身智能开发者应重点关注其开源的 Apache 2.0 权重与接口。该架构证明了纯视频预测扩散模型与语言 Planner 的结合是通往高精度物理模拟的有效路径。</p>
 </div>
 
 <div class="section-title">📖 今日推荐博客</div>
 
 <div class="blog-pick">
-  <h3><a href="https://magazine.sebastianraschka.com/p/ai-detector-from-scratch">Building an AI Text Detector From Scratch</a></h3>
-  <span class="meta">作者：Sebastian Raschka (Ahead of AI) · 2026-08-15</span>
-  <p class="blog-why"><strong>为什么今天推荐它：</strong>AI 生成内容泛滥的当下，如何准确识别文本是否由 LLM 编写成了各行各业的刚需。知名 AI 教育家 Sebastian Raschka 这篇长文手把手教你从零搭建一个基于 RLVR（可验证奖励强化学习）的文本检测器，不讲套话，全是干货代码和工程细节，非常适合想要搞懂检测机制或自研防作弊系统的开发者。</p>
+  <h3><a href="https://lastweekin.ai/p/last-week-month-in-ai-347-nvidias">Last Week in AI #347 - 英伟达内部风暴、Anthropic 万亿估值与递归自我改进风险</a></h3>
+  <span class="meta">Last Week in AI · 2026-11-11</span>
+  <p class="blog-why">推荐理由：一文整合了过去一个月 AI 圈最硬核的商业与技术剧变。既有黄仁勋调查案背后的行业治理分析，又有 OpenAI 与 Anthropic 算力开支放缓下的估值博弈，是厘清近期大事件逻辑链条的最佳全景读物。</p>
   <ul>
-    <li><strong>高质量数据集构建：</strong>如何设计负采样与合成数据集，避免模型沦为单纯记住某些特定词汇的“词频统计器”。</li>
-    <li><strong>模型微调与 RLVR 结合：</strong>阐述如何利用可验证奖励强化学习，让分类模型在面对未见过的 Prompt 生成文本时依然保持高鲁棒性。</li>
-    <li><strong>本地部署实战：</strong>演示如何把训练好的轻量检测模型部署到本地环境，实现低延迟、高吞吐的批量文本过滤。</li>
+    <li>英伟达管理层危机与地缘政治风险交织，硬件垄断格局首次出现实质性裂痕。</li>
+    <li>大模型头部玩家估值攀升至万亿美金级别，但基础设施开支增速放缓暴露商业化盈利焦虑。</li>
+    <li>Anthropic 警惕提示：模型研发可能正在接近“递归自我改进”临界点，安全边界测试迫在眉睫。</li>
   </ul>
-  <p class="blog-audience">适合：LLM 开发者、安全与风控工程师、内容审核从业者 · 阅读时间：约 25 分钟</p>
+  <p class="blog-audience">适合：AI 行业创业者、投资人及科技战略分析师 · 阅读时间：约 12 分钟</p>
 </div>
 
 <div class="section-title">⭐ GitHub 高星新项目</div>
 
 <div class="repo">
-  <h3><a href="https://github.com/HybridRobotics/supermimic">HybridRobotics/supermimic</a></h3>
-  <span class="meta">⭐ 651 · Python · 机器人控制 / 强化学习</span>
-  <p>想做双足机器人或机械臂动作模仿的人会非常需要的开源库。</p>
-  <p><strong>是什么：</strong>这是一个专注于机器人运动模仿与控制算法的开源实现库，核心集成了最新的 SuperTrack 算法。它允许开发者输入人类或动画动作捕捉数据，自动将其转化为机器人在物理仿真环境及真实硬件中可执行的平滑控制策略。</p>
-  <p><strong>为什么值得关注：</strong>传统机器人动作调校非常繁琐，而 SuperMimic 提供了开箱即用的高精度动作跟踪与泛化能力。对于从事具身智能、仿真环境强化学习以及机器人硬件开发的团队来说，这是一个能够极大缩短控制策略研发梯度的实用工具。</p>
+  <h3><a href="https://github.com/op7418/guizang-game-skill">op7418/guizang-game-skill</a></h3>
+  <span class="meta">⭐ 110 · JavaScript · ai-agents, claude-code, 3d-game</span>
+  <p>想让 AI 自动做网页 3D 游戏的人会需要的 Agent 工具。</p>
+  <p><strong>是什么：</strong>这是一个专为 Claude Code 和 Codex 设计的 Agent Skill。输入简单的游戏概念描述，它就能利用 Three.js 生成完整的单文件 HTML 网页 3D 动作游戏，并内置了可直接游玩的演示 demo《雾锁山门》。</p>
+  <p><strong>为什么值得关注：</strong>它展示了代码 Agent 从“写片段”向“交付完整交互产品”的飞跃。对独立游戏开发者和原型设计者来说，是极佳的极速验证工具。</p>
 </div>
 
-<div class="closing"><strong>今日信号：</strong>大模型不再只是窗口里的对话框，它正在通过 Agent 去接管具体的白白领外包工作，并穿上机器人的躯壳走入真实车间。</div></div>
+<div class="repo">
+  <h3><a href="https://github.com/SsKanDon/blender-ai-mcp-addon">SsKanDon/blender-ai-mcp-addon</a></h3>
+  <span class="meta">⭐ 188 · Python · blender-ai, mcp, ai-agents</span>
+  <p>3D 美术与动画师想要用自然语言打理 Blender 场景的效率神器。</p>
+  <p><strong>是什么：</strong>这是专为 Blender 打造的 AI 助手与 MCP（Model Context Protocol）服务端插件。支持视觉图像对话、场景工具自动化控制以及多 Agent 工作流，可无缝无缝接入 ChatGPT、Claude、Ollama 和 OpenCode 等模型。</p>
+  <p><strong>为什么值得关注：</strong>MCP 协议在专业图形软件领域的优秀实践。通过 Python 脚本自动化（bpy），它能直接把繁琐的 3D 节点搭建与参数调整变成一句话指令。</p>
+</div>
+
+<div class="repo">
+  <h3><a href="https://github.com/routerhubSI/kimi-uncensored">routerhubSI/kimi-uncensored</a></h3>
+  <span class="meta">⭐ 84 · Shell/GGUF · kimi, abliterated, ai-gateway</span>
+  <p>寻找无限制大模型和本地部署检查点的开发者必看。</p>
+  <p><strong>是什么：</strong>该项目整理并维护了 Kimi K3.1 Pro 的无审查（uncensored & abliterated）版本 API 接入方案与开源 GGUF 离线权重，提供极低价格的 API 转发及完整的红队测试提示词库。</p>
+  <p><strong>为什么值得关注：</strong>满足了特定场景下对于无安全对齐限制大模型的需求，便于安全研究人员进行边界红队测试与本地化部署尝试。</p>
+</div>
+
+<div class="repo">
+  <h3><a href="https://github.com/DandanLLab/SnowCatQQ">DandanLLab/SnowCatQQ</a></h3>
+  <span class="meta">⭐ 111 · JavaScript · qq-bot, mcp, electron</span>
+  <p>想在社群里部署智能客服或机器人 Agent 的开发者利器。</p>
+  <p><strong>是什么：</strong>SnowCat 雪猫融合了 NapCat 和 SnowLuma 框架，是一个全工具全源码公开的第三方 QQ 客户端机器人集成方案。完全适配最新的 QQ 桌面版，支持接入 MCP 与大模型自动化对话。</p>
+  <p><strong>为什么值得关注：</strong>社区接力维护，彻底解决了国内主流社交平台机器人开发困难、接口容易断连的痛点，适合自动化社群运营。</p>
+</div>
+
+<div class="repo">
+  <h3><a href="https://github.com/linknimiball1974/ai-texture-forge">linknimiball1974/ai-texture-forge</a></h3>
+  <span class="meta">⭐ 176 · Python · blender, dream-textures, diffusion</span>
+  <p>3D 建模师在视口里直接生成无缝 PBR 材质的生成工具。</p>
+  <p><strong>是什么：</strong>一个无缝嵌入 Blender 视口的 AI 材质生成插件。支持通过本地或云端扩散模型，直接用文本提示词一键生成无缝 PBR 贴图、概念图和全场景投影。</p>
+  <p><strong>为什么值得关注：</strong>彻底告别手动找贴图和调法线贴图的繁琐过程，本地模型支持更是保障了商业资产的隐私安全。</p>
+</div>
+
+<div class="repo">
+  <h3><a href="https://github.com/nickvasilescu/bot-hq">nickvasilescu/bot-hq</a></h3>
+  <span class="meta">⭐ 76 · TypeScript · ai-agents, composio, xai</span>
+  <p>想要多 Agent 分工协同解决复杂自动化任务的技术探索者。</p>
+  <p><strong>是什么：</strong>这是一个基于 Hermes Agent 构筑的团队多智能体协作平台。每个 Agent 在虚拟计算机上拥有独立的工作屏幕，集成了 Composio 生态应用、xAI 语音与 X 平台深度研究功能。</p>
+  <p><strong>为什么值得关注：</strong>把“一个 Agent 干所有事”拆解为“一群专业 Agent 在一台机器上协同可视化干活”，代表了复杂工作流自動化的新模式。</p>
+</div>
+
+<div class="repo">
+  <h3><a href="https://github.com/SsKanDon/blender-unreal-asset-bridge">SsKanDon/blender-unreal-asset-bridge</a></h3>
+  <span class="meta">⭐ 173 · Python · blender, unreal-engine, game-assets</span>
+  <p>游戏开发者把 3D 资产从 Blender 批量导入虚幻引擎的效率桥梁。</p>
+  <p><strong>是什么：</strong>基于 AI 辅助的 Blender 至 Unreal Engine 资产管线导出工具。能自动批量导出网格体、骨骼、动画、碰撞体与相机，并由内置 AI 自动生成 UE 端重建脚本。</p>
+  <p><strong>为什么值得关注：</strong>打通了跨引擎管线中最折腾人的数据清洗与导入步骤，把琐碎的机械性劳动交给了 AI。</p>
+</div>
+
+<div class="closing"><strong>今日信号：</strong>当 AI 开始用几天时间啃掉 CUDA 十几年的壁垒，真正决定胜负的不再是算力囤积，而是谁能解决基础设施落地与安全防护。</div></div>
   <div class="footer">AI Daily Digest · Gemini + GitHub Actions · 每天早上自动发送</div>
 </div>
 </body></html>
