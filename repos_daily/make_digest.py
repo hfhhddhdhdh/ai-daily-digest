@@ -295,7 +295,9 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    src = HERE / args.input
+    src = Path(args.input)
+    if not src.is_absolute() and not src.exists():
+        src = HERE / args.input
     if not src.exists():
         log(f"找不到候选文件 {src}，先跑 fetch_repos.py --json {args.input}")
         return 2
