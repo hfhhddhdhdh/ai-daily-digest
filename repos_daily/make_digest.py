@@ -108,10 +108,9 @@ def _prompt(repos: list[dict], videos: list[dict], date_cn: str) -> str:
       "verdict_why": "为什么给这个判断，25字以内"
     }}
   ],
-  "videos": [{{"i": 1, "why": "这条视频值得看的理由，20字以内；如果跟 GitHub 项目无关就写'与开源项目无关'"}}],
-  "closing": "整封信结尾的一句提醒或建议，30字以内"
+  "videos": [{{"i": 1, "why": "这条视频值得看的理由，20字以内；如果跟 GitHub 项目无关就写'与开源项目无关'"}}]
 }}
-repos 数组必须正好 {len(repos)} 条，videos 正好 {len(videos)} 条。"""
+repos 数组必须正好 {len(repos)} 条，videos 正好 {len(videos)} 条。不要写开场白、结尾寄语、总结陈词。"""
 
 
 def call_model(prompt: str, api_key: str) -> dict:
@@ -173,9 +172,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',s
  padding:13px 17px;margin-bottom:12px}
 .vid a{color:#831843;text-decoration:none;font-size:14.5px;line-height:1.6}
 .vid p{margin:6px 0 0;font-size:13.5px;color:#5b4a54;line-height:1.7}
-.closing{background:#12121c;color:#dcdcf5;border-radius:10px;padding:18px 20px;
- margin-top:26px;font-size:14.5px;line-height:1.8}
-.foot{padding:14px 30px 20px;font-size:11.5px;color:#b3b3bd;text-align:center;line-height:1.7}
 .empty{background:#f7f7fa;border-radius:10px;padding:18px;font-size:14px;color:#5c6270;line-height:1.8}
 """
 
@@ -222,10 +218,7 @@ def render(repos: list[dict], data: dict, videos: list[dict], date_cn: str) -> t
     <div class="sec">今天值得看的 {len(repos)} 个</div>
     {''.join(cards) if cards else '<div class="empty">今天没有够格的项目。按约定：不拿小项目凑数，明天见。</div>'}
     {('<div class="sec">📺 顺便看到有人讲</div>' + ''.join(vcards)) if vcards else ''}
-    <div class="closing">{data.get('closing','')}</div>
   </div>
-  <div class="foot">由 DeepSeek-V4.1-Flash 自动整理 · 数据来自 GitHub 官方页面<br>
-  这些项目你不需要都装，看哪个解决了你的问题再动手</div>
 </div>"""
 
     html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
@@ -303,6 +296,10 @@ def main() -> int:
         return 2
     data_in = json.loads(src.read_text(encoding="utf-8"))
     repos, videos = data_in.get("repos", []), data_in.get("videos", [])
+    # 视频区默认关闭（用户 2026-11-17：B 站抓出来的多是网盘/背单词这类，跟仓库无关，算废话）
+    # 想开：workflow 里加环境变量 SHOW_VIDEO=1，或者本地 SHOW_VIDEO=1 python make_digest.py
+    if os.environ.get("SHOW_VIDEO") != "1":
+        videos = []
     if not repos and not videos:
         log("候选为空，今天不发信")
         return 0
@@ -331,7 +328,6 @@ def main() -> int:
                         if str(x.get("i")) == str(i)), "")
             print(f"  {i}. {v['title']}（UP {v['author']}，播放 {v['play']:,}）")
             print(f"     {why}\n     {v['url']}")
-    print(f"\n结尾：{digest.get('closing','')}")
     print("=" * 60 + "\n")
 
     if args.dry_run:
