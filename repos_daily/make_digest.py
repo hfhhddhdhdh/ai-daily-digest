@@ -55,7 +55,11 @@ SYSTEM = """你是一个给"零基础小白"写科技推荐的人。读者不懂
    尤其禁止凭空写具体数量（有多少张图、多少种功能、几年、百分之几）。
    需要说"很多"的时候就用"上千""几十种"这种模糊说法，不要精确到 1439 这种数字。
 4. 不确定它具体怎么用，就不要编操作步骤，说"得按它的说明文档走"。
-5. 每一条控制在 3-4 句、80-120 字，别写长。
+5. 每条要写够：4-6 句，150-220 字。写细节，不写空话。
+   比如"解决什么麻烦"要给出具体场景（什么时候你会用得上），不要写"提升效率""方便快捷"。
+6. "怎么用"这一栏写清楚：要不要装东西、几步、要不要注册账号、收不收费。不知道就写"得看它的说明"。
+7. "要注意"这一栏写真实门槛或风险，比如需要什么环境、会不会有兼容问题、适不适合小白。
+   实在没什么坑就写"没什么特别的门槛"。
 
 判断"要不要装"的标准（给建议时必须用这三个之一）：
 - 值得试：不用写代码，装完/打开就能用出效果，且跟普通人生活有关（写作、看图、视频、文件、手机电脑优化）
@@ -101,9 +105,11 @@ def _prompt(repos: list[dict], videos: list[dict], date_cn: str) -> str:
   "repos": [
     {{
       "i": 1,
-      "what": "它到底是干什么的，一句话，25字以内，像跟朋友说话",
-      "pain": "它替你解决了什么具体的麻烦，举个场景，30-45字",
+      "what": "它到底是干什么的，一句话，30字以内，像跟朋友说话",
+      "pain": "它替你解决了什么具体的麻烦，给一个真实场景，50-70字",
+      "how": "怎么用：装什么、几步、要不要账号、收不收费，40-60字",
       "usage": "多少人用、涨得多快，用我给的数字，一句话",
+      "caveat": "要注意什么（门槛/风险/不适合谁），30-50字",
       "verdict": "值得试 / 看看就好 / 别急",
       "verdict_why": "为什么给这个判断，25字以内"
     }}
@@ -119,7 +125,7 @@ def call_model(prompt: str, api_key: str) -> dict:
         "messages": [{"role": "system", "content": SYSTEM},
                      {"role": "user", "content": prompt}],
         "temperature": 0.6,
-        "max_tokens": 4000,
+        "max_tokens": 8000,
         "response_format": {"type": "json_object"},
     }
     last = None
@@ -182,12 +188,20 @@ def render(repos: list[dict], data: dict, videos: list[dict], date_cn: str) -> t
     head = data.get("headline", "")
     items = {int(x["i"]): x for x in data.get("repos", []) if str(x.get("i", "")).isdigit()}
 
+    # 按「推荐程度」重排：值得试 → 看看就好 → 别急；同一档里保持原有热度顺序
+    rank = {"值得试": 0, "看看就好": 1, "别急": 2}
+    order = sorted(range(1, len(repos) + 1),
+                   key=lambda i: (rank.get(items.get(i, {}).get("verdict", "看看就好"), 1), i))
+
     cards = []
-    for i, r in enumerate(repos, 1):
-        it = items.get(i, {})
+    for pos, src_i in enumerate(order, 1):
+        r = repos[src_i - 1]
+        it = items.get(src_i, {})
         what = it.get("what") or r["description"][:40]
         pain = it.get("pain", "")
+        how = it.get("how", "")
         usage = it.get("usage", "")
+        caveat = it.get("caveat", "")
         verdict = it.get("verdict", "看看就好")
         vwhy = it.get("verdict_why", "")
         stat = f"⭐ {r['stars']:,}"
@@ -197,12 +211,17 @@ def render(repos: list[dict], data: dict, videos: list[dict], date_cn: str) -> t
         elif r.get("days_old"):
             stat += f"・{r['days_old']} 天新项目"
         cls = VERDICT_CLASS.get(verdict, "mid")
+        rows = [f"<p><b>它是干啥的：</b>{what}</p>",
+                f"<p><b>解决什么麻烦：</b>{pain}</p>"]
+        if how:
+            rows.append(f"<p><b>怎么用：</b>{how}</p>")
+        rows.append(f"<p><b>多少人用：</b>{usage}</p>")
+        if caveat:
+            rows.append(f"<p><b>要注意：</b>{caveat}</p>")
         cards.append(f"""<div class="card">
-  <h3>{i}. <a href="{r['url']}">{r['full_name']}</a></h3>
+  <h3>{pos}. <a href="{r['url']}">{r['full_name']}</a></h3>
   <span class="meta">{stat}・{r.get('language','')}</span>
-  <p><b>它是干啥的：</b>{what}</p>
-  <p><b>解决什么麻烦：</b>{pain}</p>
-  <p><b>多少人用：</b>{usage}</p>
+  {''.join(rows)}
   <span class="tag {cls}">{verdict}｜{vwhy}</span>
 </div>""")
 
@@ -215,7 +234,7 @@ def render(repos: list[dict], data: dict, videos: list[dict], date_cn: str) -> t
     body = f"""<div class="wrap">
   <div class="head"><h1>🔭 GitHub 今日精选</h1><p>{date_cn}　{head}</p></div>
   <div class="body">
-    <div class="sec">今天值得看的 {len(repos)} 个</div>
+    <div class="sec">今天值得看的 {len(repos)} 个 · 按推荐程度排</div>
     {''.join(cards) if cards else '<div class="empty">今天没有够格的项目。按约定：不拿小项目凑数，明天见。</div>'}
     {('<div class="sec">📺 顺便看到有人讲</div>' + ''.join(vcards)) if vcards else ''}
   </div>
@@ -224,12 +243,16 @@ def render(repos: list[dict], data: dict, videos: list[dict], date_cn: str) -> t
     html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>{CSS}</style></head><body>{body}</body></html>"""
+
     plain = head + "\n\n" + "\n\n".join(
-        f"{i}. {r['full_name']}（{r['stars']:,} 星）\n"
-        f"   干啥的：{items.get(i, {}).get('what','')}\n"
-        f"   解决：{items.get(i, {}).get('pain','')}\n"
-        f"   判断：{items.get(i, {}).get('verdict','')} — {items.get(i, {}).get('verdict_why','')}\n"
-        f"   {r['url']}" for i, r in enumerate(repos, 1))
+        f"{pos}. {repos[src_i-1]['full_name']}（{repos[src_i-1]['stars']:,} 星）· "
+        f"{items.get(src_i, {}).get('verdict', '')}\n"
+        f"   干啥的：{items.get(src_i, {}).get('what','')}\n"
+        f"   解决：{items.get(src_i, {}).get('pain','')}\n"
+        f"   怎么用：{items.get(src_i, {}).get('how','')}\n"
+        f"   多少人用：{items.get(src_i, {}).get('usage','')}\n"
+        f"   要注意：{items.get(src_i, {}).get('caveat','')}\n"
+        f"   {repos[src_i-1]['url']}" for pos, src_i in enumerate(order, 1))
     return html, plain
 
 
