@@ -1,0 +1,53 @@
+name: GitHub Daily Picks
+
+# 每天北京时间 08:05（UTC 00:05）跑一次；也可以在 Actions 页面手动点「Run workflow」立刻发一封
+on:
+  schedule:
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write      # 允许把 sent_repos.json 提交回仓库，实现「推过的不再推」
+
+concurrency:
+  group: repo-daily
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install requests
+
+      - name: 抓取 + 筛选
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python repos_daily/fetch_repos.py --json repos_daily/today.json
+
+      - name: 润色 + 发信
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          SMTP_USER:        ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD:    ${{ secrets.SMTP_PASSWORD }}
+          SMTP2_USER:       ${{ secrets.SMTP2_USER }}
+          SMTP2_PASSWORD:   ${{ secrets.SMTP2_PASSWORD }}
+          RECIPIENT_EMAIL:  ${{ secrets.RECIPIENT_EMAIL }}
+        run: python repos_daily/make_digest.py --input repos_daily/today.json
+
+      - name: 存档本次结果 + 提交去重记录
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A repos_daily || true
+          git diff --staged --quiet || git commit -m "chore(repos): 更新去重记录与最新一期 [skip ci]"
+          git pull --rebase --autostash origin main || true
+          git push || true
