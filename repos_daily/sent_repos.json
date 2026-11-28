@@ -93,7 +93,15 @@
     "vercel-labs/agent-browser": "2026-11-27",
     "qianyiai/kurocat": "2026-11-27",
     "valentderah/totk-pc-recomp": "2026-11-27",
-    "simplexai-labs/linger": "2026-11-27"
+    "simplexai-labs/linger": "2026-11-27",
+    "trustno1-coder/victory-nvidia": "2026-11-28",
+    "projectleonida/mandy": "2026-11-28",
+    "pixel679-cmyk/windows-titlebar-blur-customizer": "2026-11-28",
+    "zigzagboi1/scarlettport": "2026-11-28",
+    "lsernau/grh-lean": "2026-11-28",
+    "basil0879/steam-game-idler": "2026-11-28",
+    "umbradev315/ffmpeg-video-audio-converter": "2026-11-28",
+    "nebula4207/av1-video-encoder-gui": "2026-11-28"
   },
   "videos": {
     "BV1ndnu6EE5g": "2026-11-17",
@@ -101,6 +109,7 @@
     "BV1w6p46gEAC": "2026-11-18",
     "BV1s8sU65EC5": "2026-11-19",
     "BV1npsQ61ERq": "2026-11-19",
-    "BV1ynWm6qEbk": "2026-11-22"
+    "BV1ynWm6qEbk": "2026-11-22",
+    "BV1pz1tzJE2p": "2026-11-28"
   }
 }
